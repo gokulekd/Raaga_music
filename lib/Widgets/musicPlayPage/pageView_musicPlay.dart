@@ -1,12 +1,14 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:raaga/Pages/Screen_Splash.dart';
 import 'package:raaga/Widgets/bottomsheet_playmusic/playbutton_bottomSheet.dart';
 import 'package:raaga/Widgets/musicPlayPage/addToPlayList.dart';
 import 'package:raaga/Widgets/musicPlayPage/shuffleSongs.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
+import 'package:share_plus/share_plus.dart';
 
 class DurationState {
   const DurationState({required this.progress, required this.total});
@@ -84,12 +86,7 @@ class _musicPlay_pageViewState extends State<musicPlay_pageView> {
               ),
             ],
           ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.ios_share_outlined),
-            ),
-          ],
+      
         ),
         body: SafeArea(
           child: ListView(
@@ -125,16 +122,9 @@ class _musicPlay_pageViewState extends State<musicPlay_pageView> {
                     builder: (BuildContext context,
                         void Function(void Function()) setState) {
                       return !isShuffle
-                          ? Container(
-                              width: 35,
-                              height: 35,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Color.fromARGB(255, 235, 227, 243),
-                              ),
-                              child: IconButton(
-                                onPressed: () {
-                                  setState(() {
+                          ? GestureDetector(
+                            onTap: (){
+                                 setState(() {
                                     isShuffle = true;
 
                                     assetAudioPlayer
@@ -145,20 +135,26 @@ class _musicPlay_pageViewState extends State<musicPlay_pageView> {
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(snackBar);
                                   });
-                                },
-                                icon: Icon(Icons.shuffle),
+
+
+
+                            },
+                            child: Container(
+                                width: 35,
+                                height: 35,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Color.fromARGB(255, 235, 227, 243),
+                                ),
+                                child: Icon(Icons.loop),
                               ),
-                            )
-                          : Container(
-                              width: 35,
-                              height: 35,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Color.fromARGB(255, 210, 200, 220),
-                              ),
-                              child: IconButton(
-                                onPressed: () {
-                                  setState(() {
+                          )
+                          : GestureDetector(
+                            onTap: (){
+
+
+
+                               setState(() {
                                     isShuffle = false;
                                     assetAudioPlayer.toggleShuffle();
                                     var snackBar = SnackBar(
@@ -167,10 +163,21 @@ class _musicPlay_pageViewState extends State<musicPlay_pageView> {
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(snackBar);
                                   });
-                                },
-                                icon: Icon(Icons.loop),
+
+
+
+                            },
+                            child: Container(
+                                width: 35,
+                                height: 35,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Color.fromARGB(255, 210, 200, 220),
+                                ),
+                                child: Icon(Icons.shuffle_outlined),
+                          
                               ),
-                            );
+                          );
                     },
                   ),
                

@@ -11,7 +11,7 @@ import 'package:raaga/Widgets/my%20music/myMusic_search.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:raaga/Widgets/my%20music/song_tile_menu.dart';
 
-final _audioQuery = new OnAudioQuery();
+
 
 class Screen_MyMusic extends StatefulWidget {
   List<Audio> Fullsongs = [];
@@ -24,12 +24,10 @@ class Screen_MyMusic extends StatefulWidget {
 
 class Screen_MyMusicState extends State<Screen_MyMusic>
     with SingleTickerProviderStateMixin {
-  String Query = " ";
-  late AnimationController _controller;
-  late Animation<double> _animation;
-  late Animation<double> _animation2;
 
-  //  final box = Raaga_SongData.getInstance();
+  late AnimationController _controller;
+
+
   final AssetsAudioPlayer player = AssetsAudioPlayer.withId("0");
 
   final _audioQuery = OnAudioQuery();
@@ -38,31 +36,6 @@ class Screen_MyMusicState extends State<Screen_MyMusic>
     return source.firstWhere((element) => element.path == fromPath);
   }
 
-  void initState() {
-    super.initState();
-
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 1),
-    );
-
-    _animation = Tween<double>(begin: 0, end: 1)
-        .animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut))
-      ..addListener(() {
-        setState(() {});
-      });
-
-    _animation2 = Tween<double>(begin: 0, end: -30)
-        .animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
-
-    _controller.forward();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,12 +74,14 @@ class Screen_MyMusicState extends State<Screen_MyMusic>
               );
             }
             return ListView.builder(
-              itemCount: dbSongs_dataBase.length,
-              itemBuilder: (context, index) => InkWell(
+              itemCount: fullSongs.length,
+              itemBuilder: (context, index) =>
+              
+               InkWell(
                 enableFeedback: true,
                 onTap: () async {
                   await OpenPlayer(fullSongs: fullSongs, index: index)
-                      .openAssetPlayer(index: index, songs: widget.Fullsongs);
+                      .openAssetPlayer(index: index, songs: fullSongs);
                 },
                 highlightColor: Colors.transparent,
                 splashColor: Colors.transparent,
@@ -138,7 +113,7 @@ class Screen_MyMusicState extends State<Screen_MyMusic>
                                 "assets/songs logo.png",
                                 fit: BoxFit.cover,
                               ),
-                              id: item.data![index].id,
+                              id:int.parse( fullSongs[index].metas.id!),
                               artworkBorder: BorderRadius.circular(5.0),
                               type: ArtworkType.AUDIO),
                         ),
@@ -163,7 +138,7 @@ class Screen_MyMusicState extends State<Screen_MyMusic>
                                   height: 25.h,
                                   child: Marquee(
                                     velocity: 20,
-                                    text: item.data![index].displayNameWOExt,
+                                    text: fullSongs[index].metas.title!,
                                     style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w600,
@@ -190,7 +165,7 @@ class Screen_MyMusicState extends State<Screen_MyMusic>
                                   width: 185.w,
                                   height: 18.h,
                                   child: Text(
-                                    item.data![index].artist.toString(),
+                                 fullSongs[index].metas.artist!,
                                     style: const TextStyle(
                                       fontSize: 15,
                                       color: const Color.fromARGB(157, 255, 255, 255),
@@ -209,7 +184,7 @@ class Screen_MyMusicState extends State<Screen_MyMusic>
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: song_tile_menu(
-                                songId: widget.Fullsongs[index].metas.id
+                                songId: fullSongs[index].metas.id!
                                     .toString()),
                           ),
                         ],

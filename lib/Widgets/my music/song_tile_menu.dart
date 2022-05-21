@@ -165,23 +165,24 @@ class _song_tile_menuState extends State<song_tile_menu> {
                           return ListView.builder(
                             itemCount: playlistsnameForAddingSongs.length,
                             itemBuilder: (context, index) {
+                              
                               var playlistSongs =
-                                  box.get(playlistsnameForAddingSongs[index])!;
+                                  box.get(playlistsnameForAddingSongs);
 
                               return Container(
-                                  child: playlistsnameForAddingSongs[index] !=
+                                  child: playlistSongs![index] !=
                                               "musics" &&
-                                          playlistsnameForAddingSongs[index] !=
-                                              "favourites" &&
-                                          playlistsnameForAddingSongs[index] !=
-                                              "Recently_Played" &&
-                                          playlistSongs
+                                         playlistSongs[index] !=  
+                                              "favourites" 
+                                          
+                                        
+                                      ? GestureDetector(
+                                          onTap: () async {
+                                              playlistSongs
                                               .where((element) =>
                                                   element.id.toString() ==
                                                   temp.id.toString())
-                                              .isEmpty
-                                      ? GestureDetector(
-                                          onTap: () async {
+                                              .isEmpty;
                                             playlistSongs.add(temp);
                                             await box.put(playlistsname[index],
                                                 playlistSongs);
@@ -219,8 +220,7 @@ class _song_tile_menuState extends State<song_tile_menu> {
                                         )
                                       : GestureDetector(
                                           onTap: () async {
-                                            await box.put(playlistsname[index],
-                                                playlistSongs);
+                                        
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
                                               const SnackBar(

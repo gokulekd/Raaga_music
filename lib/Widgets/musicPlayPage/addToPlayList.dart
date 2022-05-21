@@ -20,9 +20,7 @@ class addToPlayList extends StatefulWidget {
 
 class _addToPlayListState extends State<addToPlayList>
     with TickerProviderStateMixin {
-  bool isPressed = true;
-  bool isPressed2 = true;
-  bool isHighlighted = true;
+
  
   @override
   Widget build(BuildContext context) {
@@ -31,9 +29,7 @@ class _addToPlayListState extends State<addToPlayList>
       highlightColor: Colors.transparent,
       splashColor: Colors.transparent,
       onHighlightChanged: (value) {
-        setState(() {
-          isHighlighted = !isHighlighted;
-        });
+    
       },
       onTap: () {
       showModalBottomSheet(
@@ -198,15 +194,12 @@ class _addToPlayListState extends State<addToPlayList>
               );
 
 
-     
-        setState(() {
-          isPressed2 = !isPressed2;
-        });
+ 
       },
       child: AnimatedContainer(
-        margin: EdgeInsets.all(isHighlighted ? 0 : 2.5),
-        height: isHighlighted ? 35 : 25,
-        width: isHighlighted ? 35 : 25,
+
+        height: 35,
+        width: 35,
         curve: Curves.fastLinearToSlowEaseIn,
         duration: Duration(milliseconds: 300),
         decoration: BoxDecoration(
@@ -220,15 +213,11 @@ class _addToPlayListState extends State<addToPlayList>
           color: Color.fromARGB(255, 210, 189, 229),
           shape: BoxShape.circle,
         ),
-        child: isPressed2
-            ? Icon(
+        child:  Icon(
                 Icons.library_music_outlined,
                 color: Colors.black.withOpacity(0.6),
               )
-            : Icon(
-                Icons.library_music_rounded,
-                color: Color.fromARGB(255, 0, 0, 0).withOpacity(1.0),
-              ),
+          
       ),
     );
   }

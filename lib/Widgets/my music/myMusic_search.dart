@@ -2,7 +2,10 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:marquee/marquee.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:raaga/Widgets/musicPlayPage/openPlayer.dart';
+import 'package:raaga/Widgets/my%20music/song_tile_menu.dart';
 import 'package:raaga/dataBase/songModel.dart';
 
 class searchBar extends StatefulWidget {
@@ -47,6 +50,7 @@ class _searchBarState extends State<searchBar> {
 
   @override
   Widget build(BuildContext context) {
+       double _w = MediaQuery.of(context).size.width;
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
@@ -119,7 +123,22 @@ class _searchBarState extends State<searchBar> {
               child: TextField(
                 cursorHeight: 18.h,
                 cursorColor: Colors.black,
+                
+
+
                 decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: Color.fromARGB(255, 197, 188, 211)
+        ),
+        borderRadius: BorderRadius.all(Radius.circular(50),),
+      ),
+     
+        border: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(50.0),
+          ),),
+
                 
                   contentPadding:
                       EdgeInsets.only(top: 14.h, right: 10.w, left: 10.w),
@@ -129,7 +148,7 @@ class _searchBarState extends State<searchBar> {
                   ),
                   hintText: ' Search a song',
                   filled: true,
-                  fillColor: Color.fromARGB(255, 215, 211, 220),
+                  fillColor: Color.fromARGB(152, 231, 230, 232),
                 ),
                 onChanged: (value) {
                   setState(
@@ -140,9 +159,8 @@ class _searchBarState extends State<searchBar> {
                 },
               ),
             ),
-            search.isNotEmpty
-                ? searchResult.isNotEmpty
-                    ? Expanded(
+             search.isEmpty?
+                Expanded(
                         child: ListView.builder(
                           itemCount: searchResult.length,
                           itemBuilder: (context, index) {
@@ -154,52 +172,290 @@ class _searchBarState extends State<searchBar> {
                                 if (snapshot.connectionState ==
                                     ConnectionState.done) {
                                   return GestureDetector(
-                                    child: ListTile(
-                                      leading: SizedBox(
-                                        height: 50.h,
-                                        width: 50.w,
-                                        child: QueryArtworkWidget(
-                                          id: int.parse(
-                                              searchResult[index].metas.id!),
-                                          type: ArtworkType.AUDIO,
-                                          artworkBorder:
-                                              BorderRadius.circular(15),
-                                          artworkFit: BoxFit.cover,
-                                          nullArtworkWidget: Container(
-                                            height: 50.h,
-                                            width: 50.w,
-                                            decoration: const BoxDecoration(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(15)),
-                                              image: DecorationImage(
-                                                image: AssetImage(
-                                                    "assets/songs logo.png"),
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      title: Text(
-                                        searchResult[index].metas.title!,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          color: Color.fromARGB(255, 227, 216, 216),
-                                          fontSize: 16.sp,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                      subtitle: Text(
-                                        searchResult[index].metas.artist!,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                               color: Color.fromARGB(255, 188, 175, 175),
-                                          fontSize: 14.sp,
-                                        ),
-                                      ),
+                                    child:
+                                    InkWell(
+                enableFeedback: true,
+                onTap: () async {
+                  await OpenPlayer(fullSongs: searchResult, index: index)
+                      .openAssetPlayer(index: index, songs: searchResult);
+                },
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
+                child: Container(
+                  margin: const EdgeInsets.only(right: 10, top: 10, bottom: 10),
+                  height: _w / 6,
+                  width: _w,
+                  alignment: Alignment.center,
+                  decoration: const BoxDecoration(
+                    color: const Color.fromARGB(255, 71, 64, 131),
+                    borderRadius: const BorderRadius.only(
+                      topRight: const Radius.circular(30),
+                      bottomRight: const Radius.circular(30),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(left: 10),
+                        width: 45.w,
+                        height: 45.h,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10)),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: QueryArtworkWidget(
+                              nullArtworkWidget: Image.asset(
+                                "assets/songs logo.png",
+                                fit: BoxFit.cover,
+                              ),
+                              id:int.parse(searchResult[index].metas.id!) ,
+                              artworkBorder: BorderRadius.circular(5.0),
+                              type: ArtworkType.AUDIO),
+                        ),
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(right: 5),
+                                child: const Icon(
+                                  Icons.music_note,
+                                  size: 17,
+                                  color: Color.fromARGB(207, 215, 210, 225),
+                                ),
+                              ),
+                              Center(
+                                child: Container(
+                                  margin: const EdgeInsets.only(right: 4),
+                                  width: 185.w,
+                                  height: 25.h,
+                                  child: Marquee(
+                                    velocity: 20,
+                                    text: searchResult[index].metas.title!,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600,
+                                      color: Color.fromARGB(207, 215, 210, 225),
                                     ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(right: 5),
+                                child: const Icon(
+                                  Icons.album,
+                                  size: 17,
+                                  color: Color.fromARGB(207, 215, 210, 225),
+                                ),
+                              ),
+                              Center(
+                                child: Container(
+                                  margin: REdgeInsets.only(right: 4),
+                                  width: 185.w,
+                                  height: 18.h,
+                                  child: Text(
+                                    searchResult[index].metas.artist!,
+                                    style: const TextStyle(
+                                      fontSize: 15,
+                                      color: const Color.fromARGB(157, 255, 255, 255),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: song_tile_menu(
+                                songId: searchResult[index].metas.id!
+                                    .toString()),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+                                  );
+                                }
+                                return Container();
+                              },
+                            );
+                          },
+                        ),
+                      ):
+                      SizedBox(),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            search.isNotEmpty
+                ? searchResult.isNotEmpty? 
+                
+                
+                
+                
+                
+                Expanded(
+                        child: ListView.builder(
+                          itemCount: searchResult.length,
+                          itemBuilder: (context, index) {
+                            return FutureBuilder(
+                              future: Future.delayed(
+                                const Duration(microseconds: 0),
+                              ),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.done) {
+                                  return GestureDetector(
+                                    child:
+                                    InkWell(
+                enableFeedback: true,
+                onTap: () async {
+                  await OpenPlayer(fullSongs: searchResult, index: index)
+                      .openAssetPlayer(index: index, songs: searchResult);
+                },
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
+                child: Container(
+                  margin: const EdgeInsets.only(right: 10, top: 10, bottom: 10),
+                  height: _w / 6,
+                  width: _w,
+                  alignment: Alignment.center,
+                  decoration: const BoxDecoration(
+                    color: const Color.fromARGB(255, 71, 64, 131),
+                    borderRadius: const BorderRadius.only(
+                      topRight: const Radius.circular(30),
+                      bottomRight: const Radius.circular(30),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(left: 10),
+                        width: 45.w,
+                        height: 45.h,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10)),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: QueryArtworkWidget(
+                              nullArtworkWidget: Image.asset(
+                                "assets/songs logo.png",
+                                fit: BoxFit.cover,
+                              ),
+                              id:int.parse(searchResult[index].metas.id!) ,
+                              artworkBorder: BorderRadius.circular(5.0),
+                              type: ArtworkType.AUDIO),
+                        ),
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(right: 5),
+                                child: const Icon(
+                                  Icons.music_note,
+                                  size: 17,
+                                  color: Color.fromARGB(207, 215, 210, 225),
+                                ),
+                              ),
+                              Center(
+                                child: Container(
+                                  margin: const EdgeInsets.only(right: 4),
+                                  width: 185.w,
+                                  height: 25.h,
+                                  child: Marquee(
+                                    velocity: 20,
+                                    text: searchResult[index].metas.title!,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600,
+                                      color: Color.fromARGB(207, 215, 210, 225),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(right: 5),
+                                child: const Icon(
+                                  Icons.album,
+                                  size: 17,
+                                  color: Color.fromARGB(207, 215, 210, 225),
+                                ),
+                              ),
+                              Center(
+                                child: Container(
+                                  margin: REdgeInsets.only(right: 4),
+                                  width: 185.w,
+                                  height: 18.h,
+                                  child: Text(
+                                    searchResult[index].metas.artist!,
+                                    style: const TextStyle(
+                                      fontSize: 15,
+                                      color: const Color.fromARGB(157, 255, 255, 255),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: song_tile_menu(
+                                songId: searchResult[index].metas.id!
+                                    .toString()),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
                                   );
                                 }
                                 return Container();
@@ -214,6 +470,7 @@ class _searchBarState extends State<searchBar> {
                           "No Result Found",
                           style: TextStyle(
                             fontSize: 20.sp,
+                            color: Colors.white
                           ),
                         ),
                       )
@@ -225,54 +482,3 @@ class _searchBarState extends State<searchBar> {
   }
 }
 
-
-
-
-// import 'package:flutter/material.dart';
-// import 'package:raaga/dataBase/songModel.dart';
-
-// class searchBar_Mymusic extends SearchDelegate{
-
-//   final List<String> nameOfSongs;
-//   searchBar_Mymusic(this.nameOfSongs);
-//   @override
-//   List<Widget>? buildActions(BuildContext context) {
-//   IconButton(onPressed: (){}, icon: Icon(Icons.clear));
-//   }
-
-//   @override
-//   Widget? buildLeading(BuildContext context) {
-//   return IconButton(onPressed: (){}, icon: Icon(Icons.backspace_sharp));
-//   }
-
-//   @override
-//   Widget buildResults(BuildContext context) {
-// final suggetions = nameOfSongs.where((value){
-// return value.toString().toLowerCase().contains(query.toLowerCase());
-//   });
-//   return ListView.builder(
-//     itemCount: suggetions.length,
-//     itemBuilder: (BuildContext context,int index){
-//       return ListTile(
-// title: Text(suggetions.elementAt(index)),
-//       );
-//     }
-//     );
-//   }
-
-//   @override
-//   Widget buildSuggestions(BuildContext context) {
-//  final suggetions = nameOfSongs.where((value){
-// return value.toString().toLowerCase().contains(query.toLowerCase());
-//   });
-//   return ListView.builder(
-//     itemCount: suggetions.length,
-//     itemBuilder: (BuildContext context,int index){
-//       return ListTile(
-// title: Text(suggetions.elementAt(index)),
-//       );
-//     }
-//     );
-//   }
-  
-// }
