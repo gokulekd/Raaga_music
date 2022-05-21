@@ -174,7 +174,7 @@ class _musicPlay_pageViewState extends State<musicPlay_pageView> {
                     },
                   ),
                
-                  addToPlayList(),
+                  addToPlayList(songId_For_NowPlaying: myAudio.metas.id!.toString()),
                 ],
               ),
               SizedBox(

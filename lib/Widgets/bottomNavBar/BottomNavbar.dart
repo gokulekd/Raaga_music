@@ -44,7 +44,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
     final _Pages = [
       Screen_MyMusic(Fullsongs: widget.allSongNav),
       pageView_Faourite(),
-      searchBar(fullSongs: fullSongs),
+      searchBar(fullSongs: widget.allSongNav),
       pageview_Playlist(),
     ];
     return Scaffold(

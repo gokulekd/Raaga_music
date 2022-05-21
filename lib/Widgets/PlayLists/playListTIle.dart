@@ -9,14 +9,20 @@ class playlistTile extends StatefulWidget {
   String SongsNumber;
   String playlistNameFromTile;
 
-  playlistTile({Key? key,required this.PlaylistName,  required this.SongsNumber, required this.playlistNameFromTile, }): super(key: key);
+  playlistTile({
+    Key? key,
+    required this.PlaylistName,
+    required this.SongsNumber,
+    required this.playlistNameFromTile,
+  }) : super(key: key);
 
   @override
   State<playlistTile> createState() => _playlistTileState();
 }
 
 final box = Raaga_SongData.getInstance();
-  String? _title;
+String? _title;
+
 class _playlistTileState extends State<playlistTile> {
   List playlistsname_keys = box.keys.toList();
   final _formKey = GlobalKey<FormState>();
@@ -32,16 +38,9 @@ class _playlistTileState extends State<playlistTile> {
         color: Color.fromARGB(255, 92, 74, 197),
       ),
       child: ListTile(
-        onTap: (){
-Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => Playlist_SongView_page(
-                    playlistName: widget.playlistNameFromTile),
-                                  ),
-); 
-        } ,
         leading: Container(
           decoration: BoxDecoration(
-             color: const Color.fromARGB(255, 61, 45, 104),
+            color: const Color.fromARGB(255, 61, 45, 104),
             borderRadius: BorderRadius.circular(15),
           ),
           width: 60,
@@ -58,7 +57,7 @@ Navigator.of(context).push(MaterialPageRoute(
         title: Row(
           children: [
             const Padding(
-         padding: EdgeInsets.only(right: 5, left: 5),
+              padding: EdgeInsets.only(right: 5, left: 5),
               child: Icon(
                 Icons.my_library_music_rounded,
                 size: 17,
@@ -66,7 +65,7 @@ Navigator.of(context).push(MaterialPageRoute(
               ),
             ),
             Padding(
-       padding: EdgeInsets.only(right: 5, left: 5),
+              padding: EdgeInsets.only(right: 5, left: 5),
               child: Text(
                 widget.PlaylistName,
                 style: const TextStyle(
@@ -81,7 +80,7 @@ Navigator.of(context).push(MaterialPageRoute(
         subtitle: Row(
           children: [
             const Padding(
-              padding: EdgeInsets.only(right: 5, left: 5,top: 15),
+              padding: EdgeInsets.only(right: 5, left: 5, top: 15),
               child: Icon(
                 Icons.music_note,
                 size: 17,
@@ -89,7 +88,7 @@ Navigator.of(context).push(MaterialPageRoute(
               ),
             ),
             Padding(
-         padding: EdgeInsets.only(right: 5, left: 5,top: 15),
+              padding: EdgeInsets.only(right: 5, left: 5, top: 15),
               child: Text(
                 widget.SongsNumber + " songs",
                 style: TextStyle(
@@ -141,7 +140,7 @@ Navigator.of(context).push(MaterialPageRoute(
                       child: Column(
                         children: <Widget>[
                           TextFormField(
-                            initialValue:widget.playlistNameFromTile,
+                            initialValue: widget.playlistNameFromTile,
                             decoration: InputDecoration(
                                 fillColor: Colors.white,
                                 focusedBorder: OutlineInputBorder(
@@ -157,22 +156,20 @@ Navigator.of(context).push(MaterialPageRoute(
                                   ),
                                 ),
                                 hintText: "Edit Playlist Name"),
-                                  onChanged: (value) {
-                                           _title = value.trim();
-                },
+                            onChanged: (value) {
+                              _title = value.trim();
+                            },
                             validator: (value) {
- 
-                  List keys = box.keys.toList();
-                  if (value!.trim() == "") {
-                    return "name Required";
-                  }
-                  if (keys
-                      .where((element) => element == value.trim())
-                      .isNotEmpty) {
-                    return "this name already exits";
-                  }
-                  return null;
-        
+                              List keys = box.keys.toList();
+                              if (value!.trim() == "") {
+                                return "name Required";
+                              }
+                              if (keys
+                                  .where((element) => element == value.trim())
+                                  .isNotEmpty) {
+                                return "this name already exits";
+                              }
+                              return null;
                             },
                           ),
                         ],
@@ -188,10 +185,10 @@ Navigator.of(context).push(MaterialPageRoute(
                       onPressed: () {
                         Navigator.pop(context);
                         if (_formKey.currentState!.validate()) {
-                         List? playlists = box.get(widget.playlistNameFromTile);
-                        box.put(_title, playlists!);
-                        box.delete(widget.playlistNameFromTile);
-                    
+                          List? playlists =
+                              box.get(widget.playlistNameFromTile);
+                          box.put(_title, playlists!);
+                          box.delete(widget.playlistNameFromTile);
                         }
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(

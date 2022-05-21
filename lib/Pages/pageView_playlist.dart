@@ -121,6 +121,7 @@ class _pageview_PlaylistState extends State<pageview_Playlist>
                   builder: (context, boxes, _) {
                     playlistsname = box.keys.toList();
                     return ListView.builder(
+                      padding: EdgeInsets.only(bottom: 100),
                         itemCount: playlistsname.length,
                         itemBuilder: (context, index) {
 
@@ -130,16 +131,27 @@ class _pageview_PlaylistState extends State<pageview_Playlist>
                             child: playlistsname[index] != "musics" &&
                                     playlistsname[index] != "favourites" &&
                                     playlistsname[index] != "Recently_Played"
-                                ? playlistTile(
-                                    playlistNameFromTile: playlistsname[index],
-                                    PlaylistName:
-                                        playlistsname[index].toString(),
-                                    SongsNumber:
-                                        playlistSongs.length.toString())
+                                ? GestureDetector(
+                                  onTap: (){
+                                    Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => Playlist_SongView_page(
+                    playlistName:playlistsname[index]),
+                                  ),
+); 
+                                  },
+                                  child: playlistTile(
+                                      playlistNameFromTile: playlistsname[index],
+                                      PlaylistName:
+                                          playlistsname[index].toString(),
+                                      SongsNumber:
+                                          playlistSongs.length.toString()),
+                                )
                                 : SizedBox(),
                           );
-                        });
-                  }),
+                        },
+                        );
+                  },
+                  ),
             ),
           ],
         ),

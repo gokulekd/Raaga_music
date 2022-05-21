@@ -186,7 +186,17 @@ class _pageView_FaouriteState extends State<pageView_Faourite>
                             height: 45.h,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10)),
-                            
+                            child: ClipRRect(
+                           borderRadius: BorderRadius.circular(10),
+                          child: QueryArtworkWidget(
+                              nullArtworkWidget: Image.asset(
+                                "assets/songs logo.png",
+                                fit: BoxFit.cover,
+                              ),
+                              id: favSongs[index].id,
+                              artworkBorder: BorderRadius.circular(5.0),
+                              type: ArtworkType.AUDIO),
+                        ),
                           ),
                           const SizedBox(
                             width: 10,

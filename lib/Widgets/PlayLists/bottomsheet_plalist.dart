@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:marquee/marquee.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:raaga/Pages/pageView_playlist.dart';
-import 'package:raaga/Widgets/favourite/showModelBottomSheet.dart';
 import 'package:raaga/dataBase/songModel.dart';
 
-import '../../Pages/Screen_Splash.dart';
+
 
 class bottomsheet_plalist_songView_Page extends StatefulWidget {
   var playlistNameBottomSheet;

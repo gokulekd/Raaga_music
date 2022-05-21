@@ -22,17 +22,17 @@ class song_tile_menu extends StatefulWidget {
 
 class _song_tile_menuState extends State<song_tile_menu> {
   String? _title;
-
   final box = Raaga_SongData.getInstance();
+
   List<songDataBaseModel> playlistSongs = [];
 
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
     List? favourites = box.get("favourites");
-    List playlistsname_keys = box.keys.toList();
+
     final temp = databaseSongs(dbSongs_dataBase, widget.songId);
-   final temp1 = databaseSongs(dbSongs_dataBase, widget.songId);
+
     return PopupMenuButton(
       icon: const FaIcon(
         FontAwesomeIcons.circleChevronDown,
@@ -94,14 +94,14 @@ class _song_tile_menuState extends State<song_tile_menu> {
                 ),
               ),
         const PopupMenuItem(
+          value: 1,
           child: Text(
             "Add to Playlist",
           ),
-          value: "1",
         ),
       ],
       onSelected: (value) async {
-        if (value == "1") {
+        if (value == 1) {
           showModalBottomSheet(
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
@@ -112,7 +112,6 @@ class _song_tile_menuState extends State<song_tile_menu> {
               builder: (ctx) {
                 bool isTapped = false;
                 return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -160,413 +159,110 @@ class _song_tile_menuState extends State<song_tile_menu> {
                     ),
                     Expanded(
                       child: ValueListenableBuilder(
-                          valueListenable: box.listenable(),
-                          builder: (context, boxes,  _) {
-                            playlistsname = box.keys.toList();
-                            return ListView.builder(
-                                itemCount: playlistsname.length,
-                                itemBuilder: (context, index) {
-                                  var playlistSongs =
-                                      box.get(playlistsname[index])!;
+                        valueListenable: box.listenable(),
+                        builder: (context, boxes, _) {
+                          List playlistsnameForAddingSongs = box.keys.toList();
+                          return ListView.builder(
+                            itemCount: playlistsnameForAddingSongs.length,
+                            itemBuilder: (context, index) {
+                              var playlistSongs =
+                                  box.get(playlistsnameForAddingSongs[index])!;
 
-                                  return Container(
-                                      child: playlistsname[index] != "musics" &&
-                                              playlistsname[index] !=
-                                                  "favourites" &&
-                                              playlistsname[index] !=
-                                                  "Recently_Played" 
-                                          ? 
-                                              
-                                              InkWell(
-                                                  onTap: () async {
-                                             
-                                              
-                                                        setState(() {});
-                                                      },
-                                                child: Container(
-                                                    margin:
-                                                        const EdgeInsets.all(10),
-                                                    width: 300,
-                                                    height: 75,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20),
-                                                      color: Color.fromARGB(
-                                                          255, 92, 74, 197),
-                                                    ),
-                                                    child: ListTile(
-                                            
-                                                      leading: Container(
-                                                        decoration: BoxDecoration(
-                                                          color: const Color
-                                                                  .fromARGB(
-                                                              255, 61, 45, 104),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(15),
-                                                        ),
-                                                        width: 60,
-                                                        height: 85,
-                                                        child: ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(15),
-                                                          child: const Icon(
-                                                            FontAwesomeIcons
-                                                                .music,
-                                                            size: 30,
-                                                            color: Color.fromARGB(
-                                                                255,
-                                                                215,
-                                                                206,
-                                                                205),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      title: Row(
-                                                        children: [
-                                                          const Padding(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                                    right: 5,
-                                                                    left: 5),
-                                                            child: Icon(
-                                                              Icons
-                                                                  .my_library_music_rounded,
-                                                              size: 17,
-                                                              color:
-                                                                  Color.fromARGB(
-                                                                      255,
-                                                                      255,
-                                                                      255,
-                                                                      255),
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                                    right: 5,
-                                                                    left: 5),
-                                                            child: Text(
-                                                              playlistsname[
-                                                                  index],
-                                                              style:
-                                                                  const TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color: Color
-                                                                    .fromARGB(
-                                                                        194,
-                                                                        221,
-                                                                        212,
-                                                                        241),
-                                                                fontSize: 20,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      subtitle: Row(
-                                                        children: [
-                                                          const Padding(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                                    right: 5,
-                                                                    left: 5,
-                                                                    top: 15),
-                                                            child: Icon(
-                                                              Icons.music_note,
-                                                              size: 17,
-                                                              color: Colors.white,
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                                    right: 5,
-                                                                    left: 5,
-                                                                    top: 15),
-                                                            child: Text(
-                                                              playlistSongs.length
-                                                                      .toString() +
-                                                                  " songs",
-                                                              style: TextStyle(
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color: Color
-                                                                        .fromARGB(
-                                                                            119,
-                                                                            234,
-                                                                            185,
-                                                                            185)
-                                                                    .withOpacity(
-                                                                        .8),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      trailing: PopupMenuButton(
-                                                        icon: const FaIcon(
-                                                          FontAwesomeIcons
-                                                              .circleChevronDown,
-                                                          size: 17,
-                                                          color: Color.fromARGB(
-                                                              255, 207, 200, 222),
-                                                        ),
-                                                        itemBuilder: (BuildContext
-                                                                context) =>
-                                                            [
-                                                          PopupMenuItem(
-                                                            value: 1,
-                                                            onTap: () async {},
-                                                            child: const Text(
-                                                              "Edit PlayList",
-                                                            ),
-                                                          ),
-                                                          PopupMenuItem(
-                                                            value: 2,
-                                                            onTap: () async {},
-                                                            child: const Text(
-                                                              "Delete PlayList",
-                                                            ),
-                                                          ),
-                                                        ],
-                                                        onSelected:
-                                                            (value) async {
-                                                          if (value == 1) {
-                                                            showDialog(
-                                                              context: context,
-                                                              builder: (BuildContext
-                                                                      context) =>
-                                                                  AlertDialog(
-                                                                title: const Text(
-                                                                  'Edit Playlist',
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                ),
-                                                                content:
-                                                                    Container(
-                                                                  width: 100,
-                                                                  height: 100,
-                                                                  color: Colors
-                                                                      .white,
-                                                                  child: Form(
-                                                                    key: _formKey,
-                                                                    child: Column(
-                                                                      children: <
-                                                                          Widget>[
-                                                                        TextFormField(
-                                                                          initialValue:
-                                                                              playlistsname[index],
-                                                                          decoration: InputDecoration(
-                                                                              fillColor: Colors.white,
-                                                                              focusedBorder: OutlineInputBorder(
-                                                                                borderRadius: BorderRadius.circular(10.0),
-                                                                                borderSide: const BorderSide(
-                                                                                  color: Colors.blue,
-                                                                                ),
-                                                                              ),
-                                                                              enabledBorder: OutlineInputBorder(
-                                                                                borderRadius: BorderRadius.circular(10.0),
-                                                                                borderSide: const BorderSide(
-                                                                                  color: Color.fromARGB(255, 54, 101, 244),
-                                                                                ),
-                                                                              ),
-                                                                              hintText: "Edit Playlist Name"),
-                                                                          onChanged:
-                                                                              (value) {
-                                                                            _title =
-                                                                                value.trim();
-                                                                          },
-                                                                          validator:
-                                                                              (value) {
-                                                                            List
-                                                                                keys =
-                                                                                box.keys.toList();
-                                                                            if (value!.trim() ==
-                                                                                "") {
-                                                                              return "name Required";
-                                                                            }
-                                                                            if (keys
-                                                                                .where((element) => element == value.trim())
-                                                                                .isNotEmpty) {
-                                                                              return "this name already exits";
-                                                                            }
-                                                                            return null;
-                                                                          },
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                actions: <Widget>[
-                                                                  TextButton(
-                                                                    onPressed: () =>
-                                                                        Navigator.pop(
-                                                                            context,
-                                                                            'Cancel'),
-                                                                    child: const Text(
-                                                                        'Cancel'),
-                                                                  ),
-                                                                  TextButton(
-                                                                    onPressed:
-                                                                        () {
-                                                                      Navigator.pop(
-                                                                          context);
-                                                                      if (_formKey
-                                                                          .currentState!
-                                                                          .validate()) {
-                                                                        List?
-                                                                            playlists =
-                                                                            box.get(
-                                                                                playlistsname[index]);
-                                                                        box.put(
-                                                                            _title,
-                                                                            playlists!);
-                                                                        box.delete(
-                                                                            playlistsname[
-                                                                                index]);
-                                                                      }
-                                                                      ScaffoldMessenger.of(
-                                                                              context)
-                                                                          .showSnackBar(
-                                                                        const SnackBar(
-                                                                          behavior:
-                                                                              SnackBarBehavior.floating,
-                                                                          margin: EdgeInsets.only(
-                                                                              bottom:
-                                                                                  75,
-                                                                              right:
-                                                                                  10,
-                                                                              left:
-                                                                                  10),
-                                                                          shape:
-                                                                              RoundedRectangleBorder(
-                                                                            borderRadius:
-                                                                                BorderRadius.all(Radius.circular(20)),
-                                                                          ),
-                                                                          backgroundColor: Color.fromARGB(
-                                                                              255,
-                                                                              42,
-                                                                              41,
-                                                                              123),
-                                                                          duration:
-                                                                              Duration(seconds: 1),
-                                                                          content:
-                                                                              const Text(
-                                                                            "  Playlist re-named",
-                                                                          ),
-                                                                        ),
-                                                                      );
-                                                                    },
-                                                                    child:
-                                                                        const Text(
-                                                                            'Done'),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            );
-                                              
-                                                            Navigator.canPop(
-                                                                context);
-                                                          }
-                                              
-                                                          if (value == 2) {
-                                                            showDialog<String>(
-                                                              context: context,
-                                                              builder: (BuildContext
-                                                                      context) =>
-                                                                  AlertDialog(
-                                                                title: const Text(
-                                                                  'Delete Playlist',
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                ),
-                                                                content: const Text(
-                                                                    " Do you want to Delete this playlist"),
-                                                                actions: [
-                                                                  TextButton(
-                                                                    onPressed: () =>
-                                                                        Navigator
-                                                                            .pop(
-                                                                      context,
-                                                                    ),
-                                                                    child: const Text(
-                                                                        'Cancel'),
-                                                                  ),
-                                                                  TextButton(
-                                                                    onPressed:
-                                                                        () {
-                                                                      box.delete(
-                                                                          playlistsname[
-                                                                              index]);
-                                                                      setState(
-                                                                          () {
-                                                                        playlistsname_keys = box
-                                                                            .keys
-                                                                            .toList();
-                                                                      });
-                                                                      ScaffoldMessenger.of(
-                                                                              context)
-                                                                          .showSnackBar(
-                                                                        const SnackBar(
-                                                                          duration:
-                                                                              Duration(seconds: 1),
-                                                                          behavior:
-                                                                              SnackBarBehavior.floating,
-                                                                          margin: EdgeInsets.only(
-                                                                              bottom:
-                                                                                  75,
-                                                                              right:
-                                                                                  10,
-                                                                              left:
-                                                                                  10),
-                                                                          shape:
-                                                                              RoundedRectangleBorder(
-                                                                            borderRadius:
-                                                                                BorderRadius.all(Radius.circular(20)),
-                                                                          ),
-                                                                          backgroundColor: Color.fromARGB(
-                                                                              255,
-                                                                              42,
-                                                                              41,
-                                                                              123),
-                                                                          content:
-                                                                              Text("play List deleted"),
-                                                                        ),
-                                                                      );
-                                                                      Navigator.pop(
-                                                                          context);
-                                                                    },
-                                                                    child:
-                                                                        const Text(
-                                                                            'Done'),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            );
-                                                          }
-                                                        },
-                                                      ),
-                                                    ),
-                                                  ),
-                                              )
-                                              : SizedBox()
-                                      );
-                                });
-                          }),
+                              return Container(
+                                  child: playlistsnameForAddingSongs[index] !=
+                                              "musics" &&
+                                          playlistsnameForAddingSongs[index] !=
+                                              "favourites" &&
+                                          playlistsnameForAddingSongs[index] !=
+                                              "Recently_Played" &&
+                                          playlistSongs
+                                              .where((element) =>
+                                                  element.id.toString() ==
+                                                  temp.id.toString())
+                                              .isEmpty
+                                      ? GestureDetector(
+                                          onTap: () async {
+                                            playlistSongs.add(temp);
+                                            await box.put(playlistsname[index],
+                                                playlistSongs);
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                behavior:
+                                                    SnackBarBehavior.floating,
+                                                margin: EdgeInsets.only(
+                                                    bottom: 75,
+                                                    right: 10,
+                                                    left: 10),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(20)),
+                                                ),
+                                                backgroundColor: Color.fromARGB(
+                                                    255, 42, 41, 123),
+                                                     duration: Duration(milliseconds: 500),
+                                                content: Text(
+                                                  " Added to playlist",
+                                                ),
+                                              ),
+                                            );
+                                            Navigator.pop(context);
+                                          },
+                                          child: playlistTile(
+                                              playlistNameFromTile:
+                                                  playlistsname[index],
+                                              PlaylistName: playlistsname[index]
+                                                  .toString(),
+                                              SongsNumber: playlistSongs.length
+                                                  .toString()),
+                                        )
+                                      : GestureDetector(
+                                          onTap: () async {
+                                            await box.put(playlistsname[index],
+                                                playlistSongs);
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                behavior:
+                                                    SnackBarBehavior.floating,
+                                                margin: EdgeInsets.only(
+                                                    bottom: 75,
+                                                    right: 10,
+                                                    left: 10),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(20)),
+                                                ),
+                                                backgroundColor: Color.fromARGB(
+                                                    255, 42, 41, 123),
+                                                duration: Duration(milliseconds: 500),
+                                                content: Text(
+                                                  "allready in playlist",
+                                                ),
+                                              ),
+                                            );
+                                            Navigator.pop(context);
+                                          },
+                                          child: playlistTile(
+                                              playlistNameFromTile:
+                                                  playlistsname[index],
+                                              PlaylistName: playlistsname[index]
+                                                  .toString(),
+                                              SongsNumber: playlistSongs.length
+                                                  .toString()),
+                                        ));
+                            },
+                          );
+                        },
+                      ),
                     ),
                   ],
                 );
-              });
-          Navigator.canPop(context);
+                 },
+              );
+  
         }
       },
     );
