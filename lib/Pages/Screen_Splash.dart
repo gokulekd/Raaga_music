@@ -71,8 +71,10 @@ class _screen_splashScreenState extends State<screen_splashScreen> {
     for (var element in dbSongs_dataBase) {
       fullSongs.add(
         Audio.file(
+          
           element.uri.toString(),
           metas: Metas(
+            
               title: element.title,
               id: element.id.toString(),
               artist: element.artist

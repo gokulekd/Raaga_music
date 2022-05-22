@@ -1,7 +1,7 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:raaga/Pages/Screen_Splash.dart';
+
 import 'package:raaga/Pages/pageView_Favourite.dart';
 import 'package:raaga/Pages/pageview_mymusic.dart';
 import 'package:raaga/Pages/pageView_playlist.dart';
@@ -41,7 +41,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   @override
   Widget build(BuildContext context) {
     final _Pages = [
-      Screen_MyMusic(Fullsongs: widget.allSongNav),
+      Screen_MyMusic(),
       pageView_Faourite(),
       searchBar(fullSongs: widget.allSongNav),
       pageview_Playlist(),

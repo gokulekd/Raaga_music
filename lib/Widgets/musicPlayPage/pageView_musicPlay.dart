@@ -58,6 +58,7 @@ class _musicPlay_pageViewState extends State<musicPlay_pageView> {
           toolbarHeight: 90,
           leading: IconButton(
             onPressed: () {
+           
               Navigator.pop(context);
             },
             icon: Icon(Icons.keyboard_arrow_down_sharp),
@@ -102,7 +103,7 @@ class _musicPlay_pageViewState extends State<musicPlay_pageView> {
                 child: Container(
                   margin: EdgeInsets.only(top: 20),
                   width: 340,
-                  height: 360,
+                  height: 340,
                   decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(10)),
                   child: ClipRRect(
@@ -124,7 +125,7 @@ class _musicPlay_pageViewState extends State<musicPlay_pageView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  //  FavouriteButton(AddFAVid:fullSongs[inde].id.toString()),
+   
                   StatefulBuilder(
                     builder: (BuildContext context,
                         void Function(void Function()) setState) {
@@ -136,11 +137,25 @@ class _musicPlay_pageViewState extends State<musicPlay_pageView> {
 
                                   assetAudioPlayer
                                       .setLoopMode(LoopMode.playlist);
-                                  var snackBar = SnackBar(
-                                      duration: Duration(seconds: 1),
-                                      content: Text('Shuffled Song Play'));
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBar);
+                                   assetAudioPlayer.toggleShuffle();
+                                     ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                behavior: SnackBarBehavior.floating,
+                                margin: EdgeInsets.only(
+                                    bottom: 0, right: 10, left: 10),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(20)),
+                                ),
+                                backgroundColor:
+                                    Color.fromARGB(255, 42, 41, 123),
+                                    duration: Duration(milliseconds: 500),
+                                content: Text(
+                               " shuffled Song Play",
+                                ),
+                              ),
+                            );
                                 });
                               },
                               child: Container(
@@ -158,11 +173,28 @@ class _musicPlay_pageViewState extends State<musicPlay_pageView> {
                                 setState(() {
                                   isShuffle = false;
                                   assetAudioPlayer.toggleShuffle();
-                                  var snackBar = SnackBar(
-                                      duration: Duration(seconds: 1),
-                                      content: Text('looped song play'));
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBar);
+
+
+                                     ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                behavior: SnackBarBehavior.floating,
+                                margin: EdgeInsets.only(
+                                    bottom: 0, right: 10, left: 10),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(20)),
+                                ),
+                                backgroundColor:
+                                    Color.fromARGB(255, 42, 41, 123),
+                                      duration: Duration(milliseconds: 500),
+                                content: Text(
+                               " looped Song Play",
+                                ),
+                              ),
+
+
+                            );
                                 });
                               },
                               child: Container(
@@ -183,26 +215,32 @@ class _musicPlay_pageViewState extends State<musicPlay_pageView> {
                           .isEmpty
                       ? GestureDetector(
                           onTap: () async {
+
+  
                             mainFavouriteList!.add(temp);
                             await box.put("favourites", mainFavouriteList!);
-                            ScaffoldMessenger.of(context).showSnackBar(
+                            setState(() {
+                       ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                              ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 behavior: SnackBarBehavior.floating,
                                 margin: EdgeInsets.only(
-                                    bottom: 75, right: 10, left: 10),
+                                    bottom: 0, right: 10, left: 10),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.all(
                                       Radius.circular(20)),
                                 ),
                                 backgroundColor:
                                     Color.fromARGB(255, 42, 41, 123),
+                                      duration: Duration(milliseconds: 500),
                                 content: Text(
-                               " Added to Favourites",
+                               " Added to Favourite",
                                 ),
                               ),
+
                             );
 
-                              setState(() {
+                        
                               
                             });
                           },
@@ -222,24 +260,25 @@ class _musicPlay_pageViewState extends State<musicPlay_pageView> {
                             mainFavouriteList!.removeWhere((element) =>
                                 element.id.toString() == temp.id.toString());
                             await box.put("favourites", mainFavouriteList!);
-                            ScaffoldMessenger.of(context).showSnackBar(
+
+                              ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                              ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 behavior: SnackBarBehavior.floating,
                                 margin: EdgeInsets.only(
-                                    bottom: 75, right: 10, left: 10),
+                                    bottom: 0, right: 10, left: 10),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(20)),
                                 ),
                                 backgroundColor:
-                                    Color.fromARGB(255, 42, 41, 123),
-                                duration: Duration(seconds: 1),
+                                    Color.fromARGB(255, 51, 49, 146),
+                                      duration: Duration(milliseconds: 500),
                                 content: Text(
-                                 " Removed from Favourites",
-                                  style: TextStyle(fontFamily: 'Poppins'),
+                               " Removed from Favourite",
                                 ),
                               ),
-                            );
+                              );
                             setState(() {
                               
                             });
@@ -262,7 +301,7 @@ class _musicPlay_pageViewState extends State<musicPlay_pageView> {
                 height: 30,
               ),
               Padding(
-                padding: const EdgeInsets.all(18.0),
+                padding: const EdgeInsets.all(13.0),
                 child: assetAudioPlayer.builderRealtimePlayingInfos(
                     builder: (ctx, infos) {
                   Duration currentPos = infos.currentPosition;

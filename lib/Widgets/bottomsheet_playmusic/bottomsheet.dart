@@ -2,11 +2,9 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:marquee/marquee.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:raaga/Widgets/PlayLists/editButton.dart';
 import 'package:raaga/Widgets/musicPlayPage/pageView_musicPlay.dart';
-import 'package:raaga/Widgets/bottomsheet_playmusic/nextButton_SongPlay.dart';
+
 import 'package:raaga/Widgets/bottomsheet_playmusic/playbutton_bottomSheet.dart';
 
 
@@ -137,33 +135,44 @@ class _bottomsheet_musicPlayState extends State<bottomsheet_musicPlay> {
                 ],
               ),
 
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  height: 28,
-                  width: 28,
-                  decoration: BoxDecoration(
-                     color: Color.fromARGB(248, 172, 162, 193),
-                     borderRadius: BorderRadius.circular(50)
-                  ),
-                 
-                  child: IconButton(onPressed: (){assetAudioPlayer.previous();}, icon: Icon(Icons.fast_rewind_sharp,size: 15,),splashColor: Colors.black,splashRadius: 30,)),
-              ),
+             
+               GestureDetector(
+                 onTap: () => assetAudioPlayer.previous(),
+                 child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    height: 28,
+                    width: 28,
+                    decoration: BoxDecoration(
+                       color: Color.fromARGB(248, 172, 162, 193),
+                       borderRadius: BorderRadius.circular(50)
+                    ),
+                   
+                    child: Icon(Icons.fast_rewind_rounded,size: 20,),
+               
+                  )
+                             ),
+               ),
 
               playButton_bottomSheet(PlayButton_obj_assetAudioplayer: assetAudioPlayer),
 
-               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  height: 28,
-                  width: 28,
-                  decoration: BoxDecoration(
-                     color: Color.fromARGB(248, 172, 162, 193),
-                     borderRadius: BorderRadius.circular(50)
-                  ),
-                 
-                  child: IconButton(onPressed: (){assetAudioPlayer.next();}, icon: Icon(Icons.fast_forward,size: 15,))),
-              ),
+               GestureDetector(
+                 onTap: () => assetAudioPlayer.next(),
+                 child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    height: 28,
+                    width: 28,
+                    decoration: BoxDecoration(
+                       color: Color.fromARGB(248, 172, 162, 193),
+                       borderRadius: BorderRadius.circular(50)
+                    ),
+                   
+                    child: Icon(Icons.fast_forward_rounded,size: 20,),
+               
+                  )
+                             ),
+               ),
              
                
             

@@ -7,6 +7,7 @@ import 'package:raaga/Pages/pageView_playlist.dart';
 import 'package:raaga/Widgets/PlayLists/createNewPlaylistButton.dart';
 import 'package:raaga/Widgets/PlayLists/playListTIle.dart';
 import 'package:raaga/Widgets/PlayLists/playlist_SongView_page.dart';
+import 'package:raaga/Widgets/PlayLists/playlist_mainView.dart';
 import 'package:raaga/Widgets/my%20music/bottomsheet_addToPlaylist_MyMusic.dart';
 import 'package:raaga/dataBase/songModel.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -47,18 +48,20 @@ class _song_tile_menuState extends State<song_tile_menu> {
                 onTap: () async {
                   favourites.add(temp);
                   await box.put("favourites", favourites);
+                   ScaffoldMessenger.of(context).removeCurrentSnackBar();
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
                       behavior: SnackBarBehavior.floating,
-                      margin: const EdgeInsets.only(
+                      margin: EdgeInsets.only(
                           bottom: 75, right: 10, left: 10),
-                      shape: const RoundedRectangleBorder(
+                      shape: RoundedRectangleBorder(
                         borderRadius:
-                            BorderRadius.all(const Radius.circular(20)),
+                            BorderRadius.all(Radius.circular(20)),
                       ),
-                      backgroundColor: const Color.fromARGB(255, 42, 41, 123),
+                      backgroundColor: Color.fromARGB(255, 42, 41, 123),
+                       duration: Duration(milliseconds: 500), 
                       content: Text(
-                        temp.title + " Added to Favourites",
+                       " Added to Favourites",
                       ),
                     ),
                   );
@@ -72,19 +75,21 @@ class _song_tile_menuState extends State<song_tile_menu> {
                   favourites.removeWhere(
                       (element) => element.id.toString() == temp.id.toString());
                   await box.put("favourites", favourites);
+                  ScaffoldMessenger.of(context).removeCurrentSnackBar();
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
+                      
                       behavior: SnackBarBehavior.floating,
-                      margin: const EdgeInsets.only(
+                      margin: EdgeInsets.only(
                           bottom: 75, right: 10, left: 10),
-                      shape: const RoundedRectangleBorder(
+                      shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                       ),
-                      backgroundColor: const Color.fromARGB(255, 42, 41, 123),
-                      duration: const Duration(seconds: 1),
+                      backgroundColor: Color.fromARGB(255, 42, 41, 123),
+                      duration: Duration(milliseconds: 500),
                       content: Text(
-                        temp.title + " Removed from Favourites",
-                        style: const TextStyle(fontFamily: 'Poppins'),
+                     " Removed from Favourites",
+                        style: TextStyle(fontFamily: 'Poppins'),
                       ),
                     ),
                   );
@@ -111,155 +116,158 @@ class _song_tile_menuState extends State<song_tile_menu> {
               context: context,
               builder: (ctx) {
                 bool isTapped = false;
-                return Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: InkWell(
-                        highlightColor: Colors.transparent,
-                        splashColor: Colors.transparent,
-                        onHighlightChanged: (value) {},
-                        onTap: () async {
-                          showDialog<String>(
-                              context: context,
-                              builder: (BuildContext context) =>
-                                  createNewPlaylistButton());
-                        },
-                        child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.fastLinearToSlowEaseIn,
-                          height: isTapped ? 30 : 40,
-                          width: isTapped ? 190 : 200,
-                          decoration: BoxDecoration(
-                            color: isTapped
-                                ? Color.fromARGB(255, 190, 153, 193)
-                                : Color.fromARGB(255, 177, 177, 222),
-                            borderRadius: const BorderRadius.all(
-                              const Radius.circular(30),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.3),
-                                blurRadius: 30,
-                                offset: const Offset(3, 7),
-                              ),
-                            ],
-                          ),
-                          child: const Center(
-                            child: const Text(
-                              "Create New Playlist",
-                              style: TextStyle(
-                                  color: const Color.fromARGB(255, 86, 42, 118),
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: ValueListenableBuilder(
-                        valueListenable: box.listenable(),
-                        builder: (context, boxes, _) {
-                          List playlistsnameForAddingSongs = box.keys.toList();
-                          return ListView.builder(
-                            itemCount: playlistsnameForAddingSongs.length,
-                            itemBuilder: (context, index) {
-                              
-                              var playlistSongs =
-                                  box.get(playlistsnameForAddingSongs);
+                     return playlistmain_View( songid: widget.songId);
 
-                              return Container(
-                                  child: playlistSongs![index] !=
-                                              "musics" &&
-                                         playlistSongs[index] !=  
-                                              "favourites" 
+
+                // return Column(
+                //   children: [
+                //     Padding(
+                //       padding: const EdgeInsets.all(8.0),
+                //       child: InkWell(
+                //         highlightColor: Colors.transparent,
+                //         splashColor: Colors.transparent,
+                //         onHighlightChanged: (value) {},
+                //         onTap: () async {
+                //           showDialog<String>(
+                //               context: context,
+                //               builder: (BuildContext context) =>
+                //                   createNewPlaylistButton());
+                //         },
+                //         child: AnimatedContainer(
+                //           duration: const Duration(milliseconds: 300),
+                //           curve: Curves.fastLinearToSlowEaseIn,
+                //           height: isTapped ? 30 : 40,
+                //           width: isTapped ? 190 : 200,
+                //           decoration: BoxDecoration(
+                //             color: isTapped
+                //                 ? Color.fromARGB(255, 190, 153, 193)
+                //                 : Color.fromARGB(255, 177, 177, 222),
+                //             borderRadius: const BorderRadius.all(
+                //               const Radius.circular(30),
+                //             ),
+                //             boxShadow: [
+                //               BoxShadow(
+                //                 color: Colors.black.withOpacity(0.3),
+                //                 blurRadius: 30,
+                //                 offset: const Offset(3, 7),
+                //               ),
+                //             ],
+                //           ),
+                //           child: const Center(
+                //             child: const Text(
+                //               "Create New Playlist",
+                //               style: TextStyle(
+                //                   color: const Color.fromARGB(255, 86, 42, 118),
+                //                   fontSize: 18,
+                //                   fontWeight: FontWeight.bold),
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //     Expanded(
+                //       child: ValueListenableBuilder(
+                //         valueListenable: box.listenable(),
+                //         builder: (context, boxes, _) {
+                //           List playlistsnameForAddingSongs = box.keys.toList();
+                //           return ListView.builder(
+                //             itemCount: playlistsnameForAddingSongs.length,
+                //             itemBuilder: (context, index) {
+                              
+                //               var playlistSongs =
+                //                   box.get(playlistsnameForAddingSongs);
+
+                //               return Container(
+                //                   child: playlistSongs![index] !=
+                //                               "musics" &&
+                //                          playlistSongs[index] !=  
+                //                               "favourites" 
                                           
                                         
-                                      ? GestureDetector(
-                                          onTap: () async {
-                                              playlistSongs
-                                              .where((element) =>
-                                                  element.id.toString() ==
-                                                  temp.id.toString())
-                                              .isEmpty;
-                                            playlistSongs.add(temp);
-                                            await box.put(playlistsname[index],
-                                                playlistSongs);
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              const SnackBar(
-                                                behavior:
-                                                    SnackBarBehavior.floating,
-                                                margin: EdgeInsets.only(
-                                                    bottom: 75,
-                                                    right: 10,
-                                                    left: 10),
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(20)),
-                                                ),
-                                                backgroundColor: Color.fromARGB(
-                                                    255, 42, 41, 123),
-                                                     duration: Duration(milliseconds: 500),
-                                                content: Text(
-                                                  " Added to playlist",
-                                                ),
-                                              ),
-                                            );
-                                            Navigator.pop(context);
-                                          },
-                                          child: playlistTile(
-                                              playlistNameFromTile:
-                                                  playlistsname[index],
-                                              PlaylistName: playlistsname[index]
-                                                  .toString(),
-                                              SongsNumber: playlistSongs.length
-                                                  .toString()),
-                                        )
-                                      : GestureDetector(
-                                          onTap: () async {
+                //                       ? GestureDetector(
+                //                           onTap: () async {
+                //                               playlistSongs
+                //                               .where((element) =>
+                //                                   element.id.toString() ==
+                //                                   temp.id.toString())
+                //                               .isEmpty;
+                //                             playlistSongs.add(temp);
+                //                             await box.put(playlistsname[index],
+                //                                 playlistSongs);
+                //                             ScaffoldMessenger.of(context)
+                //                                 .showSnackBar(
+                //                               const SnackBar(
+                //                                 behavior:
+                //                                     SnackBarBehavior.floating,
+                //                                 margin: EdgeInsets.only(
+                //                                     bottom: 75,
+                //                                     right: 10,
+                //                                     left: 10),
+                //                                 shape: RoundedRectangleBorder(
+                //                                   borderRadius:
+                //                                       BorderRadius.all(
+                //                                           Radius.circular(20)),
+                //                                 ),
+                //                                 backgroundColor: Color.fromARGB(
+                //                                     255, 42, 41, 123),
+                //                                      duration: Duration(milliseconds: 500),
+                //                                 content: Text(
+                //                                   " Added to playlist",
+                //                                 ),
+                //                               ),
+                //                             );
+                //                             Navigator.pop(context);
+                //                           },
+                //                           child: playlistTile(
+                //                               playlistNameFromTile:
+                //                                   playlistsname[index],
+                //                               PlaylistName: playlistsname[index]
+                //                                   .toString(),
+                //                               SongsNumber: playlistSongs.length
+                //                                   .toString()),
+                //                         )
+                //                       : GestureDetector(
+                //                           onTap: () async {
                                         
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              const SnackBar(
-                                                behavior:
-                                                    SnackBarBehavior.floating,
-                                                margin: EdgeInsets.only(
-                                                    bottom: 75,
-                                                    right: 10,
-                                                    left: 10),
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(20)),
-                                                ),
-                                                backgroundColor: Color.fromARGB(
-                                                    255, 42, 41, 123),
-                                                duration: Duration(milliseconds: 500),
-                                                content: Text(
-                                                  "allready in playlist",
-                                                ),
-                                              ),
-                                            );
-                                            Navigator.pop(context);
-                                          },
-                                          child: playlistTile(
-                                              playlistNameFromTile:
-                                                  playlistsname[index],
-                                              PlaylistName: playlistsname[index]
-                                                  .toString(),
-                                              SongsNumber: playlistSongs.length
-                                                  .toString()),
-                                        ));
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                );
+                //                             ScaffoldMessenger.of(context)
+                //                                 .showSnackBar(
+                //                               const SnackBar(
+                //                                 behavior:
+                //                                     SnackBarBehavior.floating,
+                //                                 margin: EdgeInsets.only(
+                //                                     bottom: 75,
+                //                                     right: 10,
+                //                                     left: 10),
+                //                                 shape: RoundedRectangleBorder(
+                //                                   borderRadius:
+                //                                       BorderRadius.all(
+                //                                           Radius.circular(20)),
+                //                                 ),
+                //                                 backgroundColor: Color.fromARGB(
+                //                                     255, 42, 41, 123),
+                //                                 duration: Duration(milliseconds: 500),
+                //                                 content: Text(
+                //                                   "allready in playlist",
+                //                                 ),
+                //                               ),
+                //                             );
+                //                             Navigator.pop(context);
+                //                           },
+                //                           child: playlistTile(
+                //                               playlistNameFromTile:
+                //                                   playlistsname[index],
+                //                               PlaylistName: playlistsname[index]
+                //                                   .toString(),
+                //                               SongsNumber: playlistSongs.length
+                //                                   .toString()),
+                //                         ));
+                //             },
+                //           );
+                //         },
+                //       ),
+                //     ),
+                //   ],
+                // );
                  },
               );
   

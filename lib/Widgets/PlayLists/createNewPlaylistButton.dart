@@ -22,10 +22,9 @@ class _createNewPlaylistButtonState extends State<createNewPlaylistButton> {
   @override
   Widget build(BuildContext context) {
   
-    return Padding(
-      padding: EdgeInsets.only(
-             bottom: MediaQuery.of(context).viewInsets.bottom),
-      child:  AlertDialog(
+    return 
+     
+   AlertDialog(
       title: const Text('Playlist Name'),
       content: Form(
           key: formkey,
@@ -71,7 +70,7 @@ class _createNewPlaylistButtonState extends State<createNewPlaylistButton> {
           ],
         ),
       ],
-    ),
+    
     );
   }
 }

@@ -15,8 +15,6 @@ class playButton_bottomSheet extends StatefulWidget {
 
 class _playButton_bottomSheetState extends State<playButton_bottomSheet> {
   bool isPressed = true;
-  bool isPressed2 = true;
-  bool isHighlighted = true;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +44,8 @@ class _playButton_bottomSheetState extends State<playButton_bottomSheet> {
         
   
                 isPressed = !isPressed;
-              });
+              }
+              );
             },
             child: AnimatedContainer(
               

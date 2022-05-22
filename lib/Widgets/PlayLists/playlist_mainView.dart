@@ -1,69 +1,34 @@
-// ignore_for_file: unnecessary_const
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter/src/foundation/key.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:raaga/Widgets/PlayLists/createNewPlayList.dart';
+import 'package:raaga/Pages/Screen_Splash.dart';
 import 'package:raaga/Widgets/PlayLists/createNewPlaylistButton.dart';
-import 'package:raaga/Widgets/PlayLists/editButton.dart';
-
 import 'package:raaga/Widgets/PlayLists/playListTIle.dart';
 import 'package:raaga/Widgets/PlayLists/playlist_SongView_page.dart';
-import 'package:raaga/Widgets/bottomNavBar/BottomNavbar.dart';
-import 'package:raaga/Widgets/favourite/playAll_Button.dart';
 import 'package:raaga/dataBase/songModel.dart';
 
+import '../../Pages/pageView_playlist.dart';
 
-
-class pageview_Playlist extends StatefulWidget {
-  const pageview_Playlist({Key? key}) : super(key: key);
+class playlistmain_View extends StatefulWidget {
+  final songid;
+  playlistmain_View({Key? key,required this.songid}) : super(key: key);
 
   @override
-  State<pageview_Playlist> createState() => _pageview_PlaylistState();
+  State<playlistmain_View> createState() => _playlistmain_ViewState();
 }
 final box = Raaga_SongData.getInstance();
-List playlistsname = box.keys.toList();
-List <songDataBaseModel>playlistSongs = [];
+class _playlistmain_ViewState extends State<playlistmain_View> {
 
-class _pageview_PlaylistState extends State<pageview_Playlist>
-    with TickerProviderStateMixin {
+
+List playlistsname = box.keys.toList();
+List<songDataBaseModel> playlistSongs = [];
+
   bool isTapped = false;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 80,
-        backgroundColor: Color(0xff262054),
-        centerTitle: true,
-        title: Container(
-          padding: const EdgeInsets.only(top: 3),
-          width: 390,
-          height: 40,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: const Color.fromARGB(255, 61, 45, 104),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(
-                FontAwesomeIcons.circlePlay,
-              ),
-              SizedBox(
-                width: 15,
-              ),
-              Text(
-                "Playlist ",
-                style: TextStyle(fontSize: 20),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-        ),
-      ),
-      backgroundColor: const Color(0xff262054),
-      body: SafeArea(
-        child: Column(
+    return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
@@ -123,7 +88,7 @@ class _pageview_PlaylistState extends State<pageview_Playlist>
                       padding: EdgeInsets.only(bottom: 100),
                         itemCount: playlistsname.length,
                         itemBuilder: (context, index) {
-
+ final songid_to_platlist =dbSongs_dataBase.where((element) => element.id.toString()== widget.songid).toList()[0];
                           var playlistSongs = box.get(playlistsname[index])!;
 
                           return Container(
@@ -132,11 +97,20 @@ class _pageview_PlaylistState extends State<pageview_Playlist>
                                     playlistsname[index] != "Recently_Played"
                                 ? GestureDetector(
                                   onTap: (){
-                                    Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => Playlist_SongView_page(
-                    playlistName:playlistsname[index]),
-                                  ),
-); 
+                                    // dbSongs_dataBase.where((element) => element.id.toString()== widget.songid)
+                         print(int.parse(widget.songid).runtimeType);
+                                
+      setState(() {
+          playlistSongs.add(int.parse(widget.songid));
+      
+      });
+        box.put(playlistsname[index], playlistSongs);
+       
+
+
+
+
+
                                   },
                                   child: playlistTile(
                                       playlistNameFromTile: playlistsname[index],
@@ -153,8 +127,6 @@ class _pageview_PlaylistState extends State<pageview_Playlist>
                   ),
             ),
           ],
-        ),
-      ),
-    );
+        );
   }
 }

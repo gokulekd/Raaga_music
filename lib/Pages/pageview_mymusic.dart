@@ -7,16 +7,11 @@ import 'package:raaga/Pages/Screen_Splash.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:raaga/Widgets/musicPlayPage/openPlayer.dart';
 import 'package:raaga/Widgets/my%20music/drawer/drawer_Raaga.dart';
-import 'package:raaga/Pages/myMusic_search.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:raaga/Widgets/my%20music/song_tile_menu.dart';
 
-
-
 class Screen_MyMusic extends StatefulWidget {
-  List<Audio> Fullsongs = [];
-
-  Screen_MyMusic({Key? key, required this.Fullsongs}) : super(key: key);
+  Screen_MyMusic({Key? key}) : super(key: key);
 
   @override
   Screen_MyMusicState createState() => Screen_MyMusicState();
@@ -25,18 +20,12 @@ class Screen_MyMusic extends StatefulWidget {
 class Screen_MyMusicState extends State<Screen_MyMusic>
     with SingleTickerProviderStateMixin {
 
-  late AnimationController _controller;
-
-
   final AssetsAudioPlayer player = AssetsAudioPlayer.withId("0");
-
   final _audioQuery = OnAudioQuery();
 
   Audio find(List<Audio> source, String fromPath) {
     return source.firstWhere((element) => element.path == fromPath);
   }
-
-
   @override
   Widget build(BuildContext context) {
     double _w = MediaQuery.of(context).size.width;
@@ -75,12 +64,10 @@ class Screen_MyMusicState extends State<Screen_MyMusic>
             }
             return ListView.builder(
               itemCount: fullSongs.length,
-              itemBuilder: (context, index) =>
-              
-               InkWell(
+              itemBuilder: (context, index) => InkWell(
                 enableFeedback: true,
                 onTap: () async {
-                  await OpenPlayer(fullSongs: fullSongs, index: index)
+                  await OpenPlayer(fullSongs:fullSongs , index: index)
                       .openAssetPlayer(index: index, songs: fullSongs);
                 },
                 highlightColor: Colors.transparent,
@@ -113,7 +100,7 @@ class Screen_MyMusicState extends State<Screen_MyMusic>
                                 "assets/songs logo.png",
                                 fit: BoxFit.cover,
                               ),
-                              id:int.parse( fullSongs[index].metas.id!),
+                              id: int.parse(fullSongs[index].metas.id!),
                               artworkBorder: BorderRadius.circular(5.0),
                               type: ArtworkType.AUDIO),
                         ),
@@ -165,10 +152,11 @@ class Screen_MyMusicState extends State<Screen_MyMusic>
                                   width: 185.w,
                                   height: 18.h,
                                   child: Text(
-                                 fullSongs[index].metas.artist!,
+                                    fullSongs[index].metas.artist!,
                                     style: const TextStyle(
                                       fontSize: 15,
-                                      color: const Color.fromARGB(157, 255, 255, 255),
+                                      color: const Color.fromARGB(
+                                          157, 255, 255, 255),
                                     ),
                                   ),
                                 ),
@@ -183,9 +171,9 @@ class Screen_MyMusicState extends State<Screen_MyMusic>
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: song_tile_menu(
-                                songId: fullSongs[index].metas.id!
-                                    .toString()),
+                            child:
+                             song_tile_menu(
+                                songId:fullSongs[index].metas.id!),
                           ),
                         ],
                       ),
@@ -203,5 +191,3 @@ class Screen_MyMusicState extends State<Screen_MyMusic>
     );
   }
 }
-
-
