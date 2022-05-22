@@ -8,6 +8,7 @@ import 'package:raaga/Widgets/bottomsheet_playmusic/playbutton_bottomSheet.dart'
 import 'package:raaga/Widgets/musicPlayPage/addToPlayList.dart';
 import 'package:raaga/Widgets/musicPlayPage/shuffleSongs.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
+import 'package:raaga/dataBase/songModel.dart';
 import 'package:share_plus/share_plus.dart';
 
 class DurationState {
@@ -28,12 +29,18 @@ class musicPlay_pageView extends StatefulWidget {
   State<musicPlay_pageView> createState() => _musicPlay_pageViewState();
 }
 
+final box = Raaga_SongData.getInstance();
+
 class _musicPlay_pageViewState extends State<musicPlay_pageView> {
   bool isPlaying = false;
   bool isLooping = false;
   bool isShuffle = false;
 
   final AssetsAudioPlayer assetAudioPlayer = AssetsAudioPlayer.withId("0");
+
+  List? mainFavouriteList = box.get("favourites");
+
+  bool istapped = false;
 
   Audio find(List<Audio> source, String fromPath) {
     return source.firstWhere((element) => element.path == fromPath);
@@ -44,6 +51,7 @@ class _musicPlay_pageViewState extends State<musicPlay_pageView> {
     return assetAudioPlayer.builderCurrent(
         builder: (BuildContext context, Playing? playing) {
       final myAudio = find(widget.AllSong, playing!.audio.assetAudioPath);
+      final temp = databaseSongs(dbSongs_dataBase, myAudio.metas.id.toString());
       return Scaffold(
         backgroundColor: Color(0xff262054),
         appBar: AppBar(
@@ -86,7 +94,6 @@ class _musicPlay_pageViewState extends State<musicPlay_pageView> {
               ),
             ],
           ),
-      
         ),
         body: SafeArea(
           child: ListView(
@@ -123,23 +130,20 @@ class _musicPlay_pageViewState extends State<musicPlay_pageView> {
                         void Function(void Function()) setState) {
                       return !isShuffle
                           ? GestureDetector(
-                            onTap: (){
-                                 setState(() {
-                                    isShuffle = true;
+                              onTap: () {
+                                setState(() {
+                                  isShuffle = true;
 
-                                    assetAudioPlayer
-                                        .setLoopMode(LoopMode.playlist);
-                                    var snackBar = SnackBar(
-                                        duration: Duration(seconds: 1),
-                                        content: Text('Shuffled Song Play'));
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(snackBar);
-                                  });
-
-
-
-                            },
-                            child: Container(
+                                  assetAudioPlayer
+                                      .setLoopMode(LoopMode.playlist);
+                                  var snackBar = SnackBar(
+                                      duration: Duration(seconds: 1),
+                                      content: Text('Shuffled Song Play'));
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                });
+                              },
+                              child: Container(
                                 width: 35,
                                 height: 35,
                                 decoration: BoxDecoration(
@@ -148,26 +152,20 @@ class _musicPlay_pageViewState extends State<musicPlay_pageView> {
                                 ),
                                 child: Icon(Icons.loop),
                               ),
-                          )
+                            )
                           : GestureDetector(
-                            onTap: (){
-
-
-
-                               setState(() {
-                                    isShuffle = false;
-                                    assetAudioPlayer.toggleShuffle();
-                                    var snackBar = SnackBar(
-                                        duration: Duration(seconds: 1),
-                                        content: Text('looped song play'));
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(snackBar);
-                                  });
-
-
-
-                            },
-                            child: Container(
+                              onTap: () {
+                                setState(() {
+                                  isShuffle = false;
+                                  assetAudioPlayer.toggleShuffle();
+                                  var snackBar = SnackBar(
+                                      duration: Duration(seconds: 1),
+                                      content: Text('looped song play'));
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                });
+                              },
+                              child: Container(
                                 width: 35,
                                 height: 35,
                                 decoration: BoxDecoration(
@@ -175,13 +173,89 @@ class _musicPlay_pageViewState extends State<musicPlay_pageView> {
                                   color: Color.fromARGB(255, 210, 200, 220),
                                 ),
                                 child: Icon(Icons.shuffle_outlined),
-                          
                               ),
-                          );
+                            );
                     },
                   ),
-               
-                  addToPlayList(songId_For_NowPlaying: myAudio.metas.id!.toString()),
+                  mainFavouriteList!
+                          .where((element) =>
+                              element.id.toString() == temp.id.toString())
+                          .isEmpty
+                      ? GestureDetector(
+                          onTap: () async {
+                            mainFavouriteList!.add(temp);
+                            await box.put("favourites", mainFavouriteList!);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                behavior: SnackBarBehavior.floating,
+                                margin: EdgeInsets.only(
+                                    bottom: 75, right: 10, left: 10),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(20)),
+                                ),
+                                backgroundColor:
+                                    Color.fromARGB(255, 42, 41, 123),
+                                content: Text(
+                               " Added to Favourites",
+                                ),
+                              ),
+                            );
+
+                              setState(() {
+                              
+                            });
+                          },
+                          child: Container(
+                            width: 35,
+                            height: 35,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Color.fromARGB(255, 210, 200, 220),
+                            ),
+                            child: Icon(Icons.favorite_border),
+                          ),
+                        )
+                      : 
+                       GestureDetector(
+                        onTap: () async {
+                            mainFavouriteList!.removeWhere((element) =>
+                                element.id.toString() == temp.id.toString());
+                            await box.put("favourites", mainFavouriteList!);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                behavior: SnackBarBehavior.floating,
+                                margin: EdgeInsets.only(
+                                    bottom: 75, right: 10, left: 10),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                ),
+                                backgroundColor:
+                                    Color.fromARGB(255, 42, 41, 123),
+                                duration: Duration(seconds: 1),
+                                content: Text(
+                                 " Removed from Favourites",
+                                  style: TextStyle(fontFamily: 'Poppins'),
+                                ),
+                              ),
+                            );
+                            setState(() {
+                              
+                            });
+                          },
+                          child: Container(
+                            width: 35,
+                            height: 35,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Color.fromARGB(255, 210, 200, 220),
+                            ),
+                             child: Icon(Icons.favorite,color: Colors.red,),
+                          ),
+                        ),
+                  addToPlayList(
+                      songId_For_NowPlaying:myAudio.metas.id.toString()),
                 ],
               ),
               SizedBox(
@@ -247,4 +321,10 @@ class _musicPlay_pageViewState extends State<musicPlay_pageView> {
       );
     });
   }
+}
+
+songDataBaseModel databaseSongs(List<songDataBaseModel> songs, String id) {
+  return songs.firstWhere(
+    (element) => element.id.toString().contains(id),
+  );
 }

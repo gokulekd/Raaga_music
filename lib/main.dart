@@ -11,7 +11,7 @@ Box<songDataBaseModel>? SongDB;
  
 
 Future<void> main() async {
-  
+  WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   if (!Hive.isAdapterRegistered(songDataBaseModelAdapter().typeId)) {
     Hive.registerAdapter(songDataBaseModelAdapter());
@@ -42,21 +42,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: Size(360, 690),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (_) {
+ return  ScreenUtilInit(
+      designSize: const Size(360, 690),
+    minTextAdapt: true,
+        splitScreenMode: true,
+        useInheritedMediaQuery: true,
+        builder: (context,child) {
+       
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-         
-          useInheritedMediaQuery: true,
           title: 'First Method',
-   
-
+          // You can use the library anywhere in the app even in theme
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            textTheme: Typography.englishLike2018.apply(fontSizeFactor: 1.sp),
+          ),
           home: screen_splashScreen(),
         );
       },
+    
     );
+    
   }
 }

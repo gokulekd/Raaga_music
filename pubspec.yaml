@@ -33,13 +33,17 @@ dependencies:
   assets_audio_player: ^3.0.4+1
   audio_video_progress_bar: ^0.10.0
   cupertino_icons: ^1.0.2
+  feedback: ^2.5.0
   flutter:
     sdk: flutter
+  flutter_email_sender: ^5.1.0
+  flutter_markdown: ^0.6.10
   flutter_neumorphic: ^3.2.0
   flutter_screenutil: ^5.4.0+1
   fluttertoast: ^8.0.9
   font_awesome_flutter: ^10.1.0
   hive_flutter: ^1.1.0
+  image_picker: ^0.8.5+3
   marquee: ^2.1.0
   on_audio_query: ^2.6.0
   on_audio_room: ^2.2.1+1
@@ -80,6 +84,7 @@ flutter:
     - assets/logo12.jpg
     - assets/Raaga.png
     - assets/songs logo.png
+    - assets/app Icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

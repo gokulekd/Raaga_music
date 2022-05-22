@@ -1,9 +1,9 @@
+
 import 'package:flutter/material.dart';
-import 'package:raaga/Pages/Screen_Splash.dart';
 import 'package:raaga/Widgets/my%20music/drawer/PrivacyAndPolicy.dart';
 import 'package:raaga/Widgets/my%20music/drawer/TermsAndConditions.dart';
-import 'package:raaga/Widgets/my%20music/drawer/about_page.dart';
 import 'package:raaga/Widgets/my%20music/drawer/feedBack_Raaga.dart';
+import 'package:share_plus/share_plus.dart';
 
 class drawer_Raaga extends StatefulWidget {
   const drawer_Raaga({Key? key}) : super(key: key);
@@ -35,25 +35,21 @@ class _drawer_RaagaState extends State<drawer_Raaga> {
               height: 5,
             ),
             buildMenuItem(
-                name: "Share The App",
-                IconName: Icons.share,
-             
-                ),
+              name: "Share The App",
+              IconName: Icons.share,
+               onClicked: ()async{
+                 await Share.share("https://gokulekd.github.io/my-website/");
+
+               }
+            ),
             const SizedBox(
               height: 5,
             ),
-            buildMenuItem(
-                name: "Notification",
-                IconName: Icons.notifications_active,
-            
-                iconButtonNeed: true),
-            const SizedBox(
-              height: 5,
-            ),
+         
             buildMenuItem(
               name: "Privacy And Policy",
               IconName: Icons.message,
-              onClicked: () => selectedItem(context, 3),
+              onClicked: () => selectedItem(context, 1),
             ),
             const SizedBox(
               height: 5,
@@ -61,7 +57,7 @@ class _drawer_RaagaState extends State<drawer_Raaga> {
             buildMenuItem(
               name: "Terms And Conditions",
               IconName: Icons.new_releases,
-              onClicked: () => selectedItem(context, 4),
+              onClicked: () => selectedItem(context, 2),
             ),
             const SizedBox(
               height: 5,
@@ -69,7 +65,7 @@ class _drawer_RaagaState extends State<drawer_Raaga> {
             buildMenuItem(
               name: "FeedBack",
               IconName: Icons.pending_actions_sharp,
-              onClicked: () => selectedItem(context, 5),
+              onClicked: () => selectedItem(context, 3),
             ),
             const SizedBox(
               height: 5,
@@ -77,7 +73,7 @@ class _drawer_RaagaState extends State<drawer_Raaga> {
             buildMenuItem(
               name: "About",
               IconName: Icons.info,
-              onClicked: () => selectedItem(context, 6),
+              onClicked: () => selectedItem(context, 4),
             ),
           ],
         ),
@@ -87,36 +83,39 @@ class _drawer_RaagaState extends State<drawer_Raaga> {
 
   void selectedItem(BuildContext, int index) {
     switch (index) {
+      
       case 1:
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const feedBack_Raaga(),
-        ));
-        break;
-      case 2:
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const feedBack_Raaga(),
-        ));
-        break;
-      case 3:
         Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => const PrivacyAndPolicy(),
         ));
         break;
+      case 2:
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => const termsAndConditions()
+        ));
+        break;
+      case 3:
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => const feedBack_to_Mail(),
+        ));
+        break;
+    
       case 4:
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const termsAndConditions(),
-        ));
-        break;
-      case 5:
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const feedBack_Raaga(),
-        ));
-        break;
-
-      case 6:
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const About_Page_Raaga(),
-        ));
+        showAboutDialog(
+          context: context,
+          applicationName: "Raaga",
+          applicationVersion: "1.0.0",
+          applicationIcon:CircleAvatar(radius: (52),
+            backgroundColor: Colors.white,
+            child: ClipRRect(
+              borderRadius:BorderRadius.circular(50),
+              child: Image.asset("assets/app Icon.png"),
+            )
+        )
+          );
+            
+         
+        
     }
   }
 
@@ -128,17 +127,7 @@ class _drawer_RaagaState extends State<drawer_Raaga> {
   }) {
     final itemcolor = Colors.white;
     return ListTile(
-      trailing: Visibility(
-        visible: iconButtonNeed!,
-        child: Switch(
-          value: isSwitched,
-          onChanged: toggleSwitch,
-          activeColor: const Color.fromARGB(255, 241, 230, 249),
-          activeTrackColor: const Color.fromARGB(255, 193, 127, 187),
-          inactiveTrackColor: const Color.fromARGB(255, 185, 88, 117),
-          inactiveThumbColor: const Color.fromARGB(255, 255, 255, 255),
-        ),
-      ),
+     
       leading: Icon(
         IconName,
         color: itemcolor,
@@ -155,22 +144,7 @@ class _drawer_RaagaState extends State<drawer_Raaga> {
   bool isSwitched = true;
   var textValue = 'Switch is OFF';
 
-  void toggleSwitch(bool value) {
-    if (isSwitched == true) {
-      setState(() {
-        isSwitched = false;
-        notificationControll(context);
-        textValue = 'Switch Button is ON';
-      });
-      print('Switch Button is ON');
-    } else {
-      setState(() {
-        isSwitched = true;
-        textValue = 'Switch Button is OFF';
-      });
-      print('Switch Button is OFF');
-    }
-  }
+
 
   notificationControll(BuildContext context) {
     // set up the buttons
@@ -185,7 +159,9 @@ class _drawer_RaagaState extends State<drawer_Raaga> {
         icon: const Icon(Icons.close),
         onPressed: () {
           setState(() {
+           
             isSwitched = true;
+           
             Navigator.pop(context);
           });
         },
@@ -212,11 +188,9 @@ class _drawer_RaagaState extends State<drawer_Raaga> {
 
     // set up the AlertDialog
 
-    
     AlertDialog alert = AlertDialog(
       title: const Text("Alert"),
-      content: const Text(
-          "Would you like to Turn Of music Nofication Bar"),
+      content: const Text("Would you like to Turn Of music Nofication Bar"),
       actions: [
         closeButton,
         doneButton,

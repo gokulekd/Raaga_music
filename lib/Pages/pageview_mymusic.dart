@@ -7,7 +7,7 @@ import 'package:raaga/Pages/Screen_Splash.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:raaga/Widgets/musicPlayPage/openPlayer.dart';
 import 'package:raaga/Widgets/my%20music/drawer/drawer_Raaga.dart';
-import 'package:raaga/Widgets/my%20music/myMusic_search.dart';
+import 'package:raaga/Pages/myMusic_search.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:raaga/Widgets/my%20music/song_tile_menu.dart';
 
@@ -57,7 +57,7 @@ class Screen_MyMusicState extends State<Screen_MyMusic>
       body: SafeArea(
         child: FutureBuilder<List<SongModel>>(
           future: _audioQuery.querySongs(
-            sortType: null,
+            sortType: SongSortType.ALBUM,
             orderType: OrderType.ASC_OR_SMALLER,
             uriType: UriType.EXTERNAL,
             ignoreCase: true,

@@ -2,13 +2,12 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:raaga/Pages/Screen_Splash.dart';
-import 'package:raaga/Pages/SearchBar_Page.dart';
 import 'package:raaga/Pages/pageView_Favourite.dart';
 import 'package:raaga/Pages/pageview_mymusic.dart';
 import 'package:raaga/Pages/pageView_playlist.dart';
 import 'package:raaga/Widgets/bottomsheet_playmusic/bottomsheet.dart';
 import 'package:raaga/Widgets/my%20music/drawer/drawer_Raaga.dart';
-import 'package:raaga/Widgets/my%20music/myMusic_search.dart';
+import 'package:raaga/Pages/myMusic_search.dart';
 
 class BottomNavigation extends StatefulWidget {
   List<Audio> allSongNav;

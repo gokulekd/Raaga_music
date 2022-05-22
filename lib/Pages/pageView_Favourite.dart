@@ -268,14 +268,15 @@ class _pageView_FaouriteState extends State<pageView_Faourite>
                           children: [
                             
                             IconButton(
-                              onPressed: ()
-                              async {
-                              mainFavouriteList!.removeWhere((element) =>
-                                  element.id.toString() ==
-                                  dbSongs_dataBase[index].id.toString());
-                              await box.put("favourites", mainFavouriteList!);
-                              setState(() {});
-                            },
+                             onPressed: () async {
+                            mainFavouriteList!.removeWhere((element) =>
+                                element.id.toString() == favSongs[index].id.toString());
+                            await box.put("favourites", mainFavouriteList!);
+                     
+                            setState(() {
+                              
+                            });
+                          },
                             icon: const Icon(FontAwesomeIcons.circleXmark ,size: 20, color: Color.fromARGB(199, 195, 209, 229),),
                             ),
                           ],

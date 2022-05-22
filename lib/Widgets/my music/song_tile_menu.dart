@@ -21,7 +21,7 @@ class song_tile_menu extends StatefulWidget {
 }
 
 class _song_tile_menuState extends State<song_tile_menu> {
-  String? _title;
+
   final box = Raaga_SongData.getInstance();
 
   List<songDataBaseModel> playlistSongs = [];
