@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lottie/lottie.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:raaga/Pages/Screen_Splash.dart';
 import 'package:raaga/Widgets/bottomsheet_playmusic/playbutton_bottomSheet.dart';
@@ -32,10 +33,15 @@ class musicPlay_pageView extends StatefulWidget {
 
 final box = Raaga_SongData.getInstance();
 
-class _musicPlay_pageViewState extends State<musicPlay_pageView> {
-  bool isPlaying = false;
+class _musicPlay_pageViewState extends State<musicPlay_pageView>{
+
+bool isPlaying = false;
   bool isLooping = false;
   bool isShuffle = false;
+  bool isLotteplaying = true;
+
+  
+  
 
   final AssetsAudioPlayer assetAudioPlayer = AssetsAudioPlayer.withId("0");
 
@@ -49,6 +55,10 @@ class _musicPlay_pageViewState extends State<musicPlay_pageView> {
 
   @override
   Widget build(BuildContext context) {
+    
+ bool lotteBool= false;
+    var lotte = Lottie.asset("assets/json/19782-listening-to-music.json",animate: isLotteplaying);
+
     return assetAudioPlayer.builderCurrent(
         builder: (BuildContext context, Playing? playing) {
       final myAudio = find(widget.AllSong, playing!.audio.assetAudioPath);
@@ -110,13 +120,11 @@ class _musicPlay_pageViewState extends State<musicPlay_pageView> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: QueryArtworkWidget(
-                        nullArtworkWidget: Image.asset(
-                          "assets/songs logo.png",
-                          fit: BoxFit.cover,
-                        ),
+                        nullArtworkWidget: lotte,
                         id: int.parse(myAudio.metas.id!),
                         artworkBorder: BorderRadius.circular(5.0),
                         type: ArtworkType.AUDIO),
+                        
                   ),
                 ),
               ),
@@ -343,9 +351,14 @@ class _musicPlay_pageViewState extends State<musicPlay_pageView> {
                       )),
                    GestureDetector(
                      onTap: (()async {
+                    
                             await assetAudioPlayer.playOrPause();
+                           
                             setState(() {
-                              
+                             
+                            isLotteplaying = !isLotteplaying;
+                           
+                            
                             });
                        
                      }),
@@ -359,11 +372,13 @@ class _musicPlay_pageViewState extends State<musicPlay_pageView> {
                         child: PlayerBuilder.isPlaying(
                             player: assetAudioPlayer,
                             builder: (context, isPlaying) {
+                              isPlaying?lotteBool==true:lotteBool == false;
                               return 
                               
                                 Icon(
                                   isPlaying ? Icons.pause  : Icons.play_arrow,
                                   size: 30.h.w,color: Color.fromARGB(255, 86, 64, 147),
+                                  
                                 
                               );
                             }),

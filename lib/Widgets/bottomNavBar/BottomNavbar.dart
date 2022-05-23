@@ -21,13 +21,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
   final AssetsAudioPlayer assetAudioPlayer = AssetsAudioPlayer.withId("0");
   final audioQuery = OnAudioQuery();
   int _selectedIndex = 0;
-  void _onItemTapped(int index) {
-    setState(
-      () {
-        _selectedIndex = index;
-      },
-    );
-  }
 
   Audio find(List<Audio> source, String fromPath) {
     return source.firstWhere((element) => element.path == fromPath);
@@ -40,24 +33,22 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    final _Pages = [
+    // ignore: non_constant_identifier_names
+    final Pages = [
       Screen_MyMusic(),
-      pageView_Faourite(),
+      const pageView_Faourite(),
       searchBar(fullSongs: widget.allSongNav),
-      pageview_Playlist(),
+      const pageview_Playlist(),
     ];
     return Scaffold(
-      
-      drawer: drawer_Raaga(),
-      body: _Pages[_selectedIndex],
-      
-      
-      bottomSheet: bottomsheet_musicPlay(
-        Allsongs_bottomsheet: widget.allSongNav),
+      drawer: const drawer_Raaga(),
+      body: Pages[_selectedIndex],
+      bottomSheet:
+          bottomsheet_musicPlay(Allsongs_bottomsheet: widget.allSongNav),
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(
           // sets the background color of the `BottomNavigationBar`
-          canvasColor:Color.fromARGB(255, 47, 40, 101),
+          canvasColor: const Color.fromARGB(255, 47, 40, 101),
           // sets the active color of the `BottomNavigationBar` if `Brightness` is light
         ),
         child: BottomNavigationBar(
@@ -70,24 +61,20 @@ class _BottomNavigationState extends State<BottomNavigation> {
               });
             },
             elevation: 0,
-            selectedItemColor: Color.fromARGB(247, 206, 206, 255),
-            unselectedItemColor: Color.fromARGB(255, 126, 113, 145),
+            selectedItemColor: const Color.fromARGB(247, 206, 206, 255),
+            unselectedItemColor: const Color.fromARGB(255, 126, 113, 145),
             selectedFontSize: 16,
-          
             items: const [
               BottomNavigationBarItem(
-                  icon: SizedBox(
-                    height: 30,
-                    child: Icon(
-                      Icons.headphones_rounded,
-                      size: 30,
-                    ),
+                icon: SizedBox(
+                  height: 30,
+                  child: Icon(
+                    Icons.headphones_rounded,
+                    size: 30,
                   ),
-                  label: "MyMusic",
-           
-                  
-                  ),
-                  
+                ),
+                label: "MyMusic",
+              ),
               BottomNavigationBarItem(
                   icon: Icon(
                     Icons.favorite_outlined,

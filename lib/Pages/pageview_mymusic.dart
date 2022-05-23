@@ -11,7 +11,7 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:raaga/Widgets/my%20music/song_tile_menu.dart';
 
 class Screen_MyMusic extends StatefulWidget {
-  Screen_MyMusic({Key? key}) : super(key: key);
+  const Screen_MyMusic({Key? key}) : super(key: key);
 
   @override
   Screen_MyMusicState createState() => Screen_MyMusicState();
@@ -19,13 +19,13 @@ class Screen_MyMusic extends StatefulWidget {
 
 class Screen_MyMusicState extends State<Screen_MyMusic>
     with SingleTickerProviderStateMixin {
-
   final AssetsAudioPlayer player = AssetsAudioPlayer.withId("0");
   final _audioQuery = OnAudioQuery();
 
   Audio find(List<Audio> source, String fromPath) {
     return source.firstWhere((element) => element.path == fromPath);
   }
+
   @override
   Widget build(BuildContext context) {
     double _w = MediaQuery.of(context).size.width;
@@ -64,10 +64,10 @@ class Screen_MyMusicState extends State<Screen_MyMusic>
             }
             return ListView.builder(
               itemCount: fullSongs.length,
-              itemBuilder: (context, index) => InkWell(
+              itemBuilder: (context, index)  => InkWell(
                 enableFeedback: true,
                 onTap: () async {
-                  await OpenPlayer(fullSongs:fullSongs , index: index)
+                  await OpenPlayer(fullSongs: fullSongs, index: index)
                       .openAssetPlayer(index: index, songs: fullSongs);
                 },
                 highlightColor: Colors.transparent,
@@ -171,9 +171,8 @@ class Screen_MyMusicState extends State<Screen_MyMusic>
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child:
-                             song_tile_menu(
-                                songId:fullSongs[index].metas.id!),
+                            child: song_tile_menu(
+                                songId: fullSongs[index].metas.id!),
                           ),
                         ],
                       ),

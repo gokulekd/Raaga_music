@@ -44,6 +44,7 @@ dependencies:
   font_awesome_flutter: ^10.1.0
   hive_flutter: ^1.1.0
   image_picker: ^0.8.5+3
+  lottie: ^1.3.0
   marquee: ^2.1.0
   on_audio_query: ^2.6.0
   on_audio_room: ^2.2.1+1
@@ -67,6 +68,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+ 
 
   # To add assets to your application, add an assets section, like this:
   assets:
@@ -85,6 +87,7 @@ flutter:
     - assets/Raaga.png
     - assets/songs logo.png
     - assets/app Icon.png
+    - assets/json/19782-listening-to-music.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

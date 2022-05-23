@@ -93,7 +93,7 @@ class _showModelBottomSheet_favourite_ScreenState
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
-                              color: const Color.fromARGB(207, 215, 210, 225),
+                              color:  Color.fromARGB(207, 215, 210, 225),
                             ),
                           ),
                         ),
@@ -107,7 +107,7 @@ class _showModelBottomSheet_favourite_ScreenState
                         child: const Icon(
                           Icons.album,
                           size: 17,
-                          color: const Color.fromARGB(207, 215, 210, 225),
+                          color:  Color.fromARGB(207, 215, 210, 225),
                         ),
                       ),
                       Center(
@@ -119,7 +119,7 @@ class _showModelBottomSheet_favourite_ScreenState
                             dbSongs_dataBase[index].artist.toString(),
                             style: const TextStyle(
                               fontSize: 15,
-                              color: const Color.fromARGB(157, 255, 255, 255),
+                              color: Color.fromARGB(157, 255, 255, 255),
                             ),
                           ),
                         ),
@@ -133,7 +133,7 @@ class _showModelBottomSheet_favourite_ScreenState
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: 8, right: 8),
+                    padding: const EdgeInsets.only(top: 8 , right: 8),
                     child: mainFavouriteList!
                             .where((element) =>
                                 element.id.toString() ==
@@ -146,7 +146,7 @@ class _showModelBottomSheet_favourite_ScreenState
                               await box.put("favourites", mainFavouriteList!);
                               setState(() {});
                             },
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.favorite,
                               size: 20,
                               color: Color.fromARGB(255, 255, 255, 255),
@@ -160,7 +160,7 @@ class _showModelBottomSheet_favourite_ScreenState
                               await box.put("favourites", mainFavouriteList!);
                               setState(() {});
                             },
-                            icon: Icon(Icons.favorite,
+                            icon: const Icon(Icons.favorite,
                                 size: 20,
                                 color: Color.fromARGB(255, 238, 21, 21)),
                           ),
