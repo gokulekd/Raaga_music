@@ -1,6 +1,7 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:raaga/Pages/Screen_Splash.dart';
@@ -340,12 +341,40 @@ class _musicPlay_pageViewState extends State<musicPlay_pageView> {
                         size: 30,
                         color: Color.fromARGB(183, 255, 255, 255),
                       )),
-                  playButton_bottomSheet(
-                      PlayButton_obj_assetAudioplayer:
-                          widget.assetAudio_musicplayPage),
+                   GestureDetector(
+                     onTap: (()async {
+                            await assetAudioPlayer.playOrPause();
+                            setState(() {
+                              
+                            });
+                       
+                     }),
+                     child: Container(
+                  
+                        height: 65,
+                        width: 65,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                             color: Color.fromARGB(255, 182, 165, 200)),
+                        child: PlayerBuilder.isPlaying(
+                            player: assetAudioPlayer,
+                            builder: (context, isPlaying) {
+                              return 
+                              
+                                Icon(
+                                  isPlaying ? Icons.pause  : Icons.play_arrow,
+                                  size: 30.h.w,color: Color.fromARGB(255, 86, 64, 147),
+                                
+                              );
+                            }),
+                      ),
+                   ),
                   IconButton(
                       onPressed: () {
                         assetAudioPlayer.next();
+                        setState(() {
+                            
+                        });
                       },
                       icon: Icon(
                         Icons.fast_forward,

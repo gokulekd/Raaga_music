@@ -154,7 +154,34 @@ class _bottomsheet_musicPlayState extends State<bottomsheet_musicPlay> {
                              ),
                ),
 
-              playButton_bottomSheet(PlayButton_obj_assetAudioplayer: assetAudioPlayer),
+               GestureDetector(
+                     onTap: (()async {
+                            await assetAudioPlayer.playOrPause();
+                            setState(() {
+                              
+                            });
+                       
+                     }),
+                     child: Container(
+                  
+                        height: 60,
+                        width: 60,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                             color:Color.fromARGB(255, 182, 165, 200)),
+                        child: PlayerBuilder.isPlaying(
+                            player: assetAudioPlayer,
+                            builder: (context, isPlaying) {
+                              return 
+                              
+                                Icon(
+                                  isPlaying ? Icons.pause  : Icons.play_arrow,
+                                  size: 30.h.w,color: Color.fromARGB(255, 86, 64, 147),
+                                
+                              );
+                            }),
+                      ),
+                   ),
 
                GestureDetector(
                  onTap: () => assetAudioPlayer.next(),

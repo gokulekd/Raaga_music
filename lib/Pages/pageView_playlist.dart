@@ -90,7 +90,7 @@ class _pageview_PlaylistState extends State<pageview_Playlist>
                   decoration: BoxDecoration(
                     color: isTapped
                         ? Color.fromARGB(255, 190, 153, 193)
-                        : Color.fromARGB(255, 177, 177, 222),
+                        : Color.fromARGB(255, 152, 152, 206),
                     borderRadius: const BorderRadius.all(
                       const Radius.circular(30),
                     ),
@@ -106,7 +106,7 @@ class _pageview_PlaylistState extends State<pageview_Playlist>
                     child: const Text(
                       "Create New Playlist",
                       style: TextStyle(
-                          color: const Color.fromARGB(255, 86, 42, 118),
+                          color: Color.fromARGB(255, 60, 26, 85),
                           fontSize: 18,
                           fontWeight: FontWeight.bold),
                     ),

@@ -89,86 +89,78 @@ class _playlistmain_ViewState extends State<playlistmain_View> {
                 padding: EdgeInsets.only(bottom: 100),
                 itemCount: playlistsname.length,
                 itemBuilder: (context, index) {
-                    var  playlistSongs = box.get(playlistsname[index])!.cast<songDataBaseModel>();
-                  final songidToPlatlist = dbSongs_dataBase
-                      .where(
-                          (element) => element.id.toString() == widget.songid)
-                      .toList()[0];
+                  var playlistSongs = box.get(playlistsname[index])!;
+
+              
                   return Container(
                       child: playlistsname[index] != "musics" &&
                               playlistsname[index] != "favourites" &&
                               playlistsname[index] != "Recently_Played"
-                                ?
-                          
-                             
-                         
-                                
-                                 GestureDetector(
-                                  
-                                  
-                                    onTap: () {
-                                       playlistSongs.where((element) => element.id.toString() == songidToPlatlist.toString()).isEmpty?
-                                      
+                          ? GestureDetector(
+                              onTap: () {
+                                final songid_to_platlist = dbSongs_dataBase
+                                    .where((element) =>
+                                        element.id.toString() == widget.songid)
+                                    .toList()[0];
+                           
+                                if (playlistSongs
+                                    .where((element) =>
+                                        element.id.toString() == widget.songid)
+                                    .isEmpty) {
+                                  playlistSongs.add(songid_to_platlist);
+                                  box.put(playlistsname[index], playlistSongs);
 
-                                         //  final songid_to_platlist =dbSongs_dataBase.where((element) => element.id.toString()== widget.songid).toList()[0];
-                                            //  print(playlistSongs[index].id);
-                                            //  print(songid_to_platlist.id);
-   
-                                          setState(() {
-                                             playlistSongs.add(songidToPlatlist);
-                                             box.put(playlistsname[index], playlistSongs);
-                                         
-                                          }):
-
-                                                
-                                      
-                                     
-                                  
-                                      ScaffoldMessenger.of(context)
-                                          .removeCurrentSnackBar();
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
-                                          behavior: SnackBarBehavior.floating,
-                                          margin: EdgeInsets.only(
-                                              bottom: 0, right: 10, left: 10),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(20)),
-                                          ),
-                                          backgroundColor:
-                                              Color.fromARGB(255, 51, 49, 146),
-                                          duration: Duration(milliseconds: 500),
-                                          content: Text(
-                                            " allready exist",
-                                          ),
-                                        ),
-                                      );
-                                      Navigator.pop(context);
-                                    },
-                                    child: playlistTile(
-                                        playlistNameFromTile:
-                                            playlistsname[index],
-                                        PlaylistName:
-                                            playlistsname[index].toString(),
-                                        SongsNumber:
-                                            playlistSongs.length.toString()),
-                                  ):Container()
-                               
-                              
-                  
-                                      
-                                         
-
-                                                
-                                      
-                                     
-                                  
                                    
-                                  
-                          
-                          
-                          
-                          );
+                                   ScaffoldMessenger.of(context)
+                                      .removeCurrentSnackBar();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      behavior: SnackBarBehavior.floating,
+                                      margin: EdgeInsets.only(
+                                          bottom: 0, right: 10, left: 10),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20)),
+                                      ),
+                                      backgroundColor:
+                                          Color.fromARGB(255, 51, 49, 146),
+                                      duration: Duration(milliseconds: 500),
+                                      content: Text(
+                                        " Done",
+                                      ),
+                                    ),
+                                  );  
+                                } else {
+                                  ScaffoldMessenger.of(context)
+                                      .removeCurrentSnackBar();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      behavior: SnackBarBehavior.floating,
+                                      margin: EdgeInsets.only(
+                                          bottom: 0, right: 10, left: 10),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20)),
+                                      ),
+                                      backgroundColor:
+                                          Color.fromARGB(255, 51, 49, 146),
+                                      duration: Duration(milliseconds: 500),
+                                      content: Text(
+                                        " allready exist",
+                                      ),
+                                    ),
+                                  );
+                                }
+
+                                setState(() {});
+                                Navigator.pop(context);
+                              },
+                              child: playlistTile(
+                                  playlistNameFromTile: playlistsname[index],
+                                  PlaylistName: playlistsname[index].toString(),
+                                  SongsNumber: playlistSongs.length.toString()),
+                            )
+                          : Container());
                 },
               );
             },

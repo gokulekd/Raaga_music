@@ -30,21 +30,22 @@ class _playlistTileState extends State<playlistTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(10),
+      margin: const EdgeInsets.all(8),
       width: 300,
       height: 75,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: Color.fromARGB(255, 92, 74, 197),
+        color:  Color.fromARGB(255, 71, 64, 131),
       ),
       child: ListTile(
         leading: Container(
+      
           decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 61, 45, 104),
+            color: Color.fromARGB(255, 22, 24, 63),
             borderRadius: BorderRadius.circular(15),
           ),
           width: 60,
-          height: 85,
+          height: 60,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(15),
             child: const Icon(

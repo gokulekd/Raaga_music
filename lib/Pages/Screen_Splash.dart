@@ -25,11 +25,8 @@ class _screen_splashScreenState extends State<screen_splashScreen> {
     super.initState();
     fetchSongs();
 
-    Timer(Duration(milliseconds: 2000), () {
-      Navigator.of(context).pushReplacement(
-          SlideTransitionAnimation(BottomNavigation(allSongNav: fullSongs)));
-    });
-    Permission.storage.request();
+    
+    
   }
 
    final box = Raaga_SongData.getInstance();
@@ -87,7 +84,10 @@ class _screen_splashScreenState extends State<screen_splashScreen> {
 
     setState(() {});
 
-  
+  Timer(Duration(milliseconds: 2000), () {
+      Navigator.of(context).pushReplacement(
+          SlideTransitionAnimation(BottomNavigation(allSongNav: fullSongs)));
+    });
   }
 
   @override

@@ -267,17 +267,20 @@ class _pageView_FaouriteState extends State<pageView_Faourite>
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             
-                            IconButton(
-                             onPressed: () async {
-                            mainFavouriteList!.removeWhere((element) =>
-                                element.id.toString() == favSongs[index].id.toString());
-                            await box.put("favourites", mainFavouriteList!);
+                            Padding(
+                              padding: const EdgeInsets.only(top: 7,left: 12),
+                              child: IconButton(
+                               onPressed: () async {
+                              mainFavouriteList!.removeWhere((element) =>
+                                  element.id.toString() == favSongs[index].id.toString());
+                              await box.put("favourites", mainFavouriteList!);
                      
-                            setState(() {
-                              
-                            });
+                              setState(() {
+                                
+                              });
                           },
-                            icon: const Icon(FontAwesomeIcons.circleXmark ,size: 20, color: Color.fromARGB(199, 195, 209, 229),),
+                              icon: const Icon(FontAwesomeIcons.circleXmark ,size: 20, color: Color.fromARGB(199, 195, 209, 229),),
+                              ),
                             ),
                           ],
                         ),

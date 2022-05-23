@@ -133,7 +133,7 @@ class _showModelBottomSheet_favourite_ScreenState
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: 13, right: 8),
+                    padding: EdgeInsets.only(top: 8, right: 8),
                     child: mainFavouriteList!
                             .where((element) =>
                                 element.id.toString() ==

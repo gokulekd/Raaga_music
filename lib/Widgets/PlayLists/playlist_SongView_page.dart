@@ -216,28 +216,22 @@ class _Playlist_SongView_pageState extends State<Playlist_SongView_page> {
                                     )
                                   ],
                                 ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    IconButton(
-                                      onPressed: () async {
+                             GestureDetector(
+                               onTap: () {
+                            
                                         setState(() {
                                           playlistSongs.removeAt(index);
                                           box.put(widget.playlistName,
                                               playlistSongs);
                                         });
                                 
-                                      },
-                                      icon: const Icon(
-                                        FontAwesomeIcons.circleXmark,
-                                        size: 20,
-                                        color:
-                                            Color.fromARGB(199, 195, 209, 229),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                      
+                               },
+                               child: Padding(
+                                 padding: const EdgeInsets.only(left: 25,bottom: 2),
+                                 child: Icon(FontAwesomeIcons.circleXmark,color: Color.fromARGB(255, 190, 173, 173),size: 20,),
+                               ),
+                             )
                               ],
                             ),
                           ),
