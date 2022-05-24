@@ -133,10 +133,17 @@ class _bottomsheet_musicPlayState extends State<bottomsheet_musicPlay> {
                   ),
                 ],
               ),
+                GestureDetector(
+              onTap: () {
 
-             
-               GestureDetector(
-                 onTap: () => assetAudioPlayer.previous(),
+               
+                   assetAudioPlayer.previous();
+                   setState(() {
+                            
+                    isLotteplaying = true;
+ 
+                   });
+                   },
                  child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
@@ -155,9 +162,12 @@ class _bottomsheet_musicPlayState extends State<bottomsheet_musicPlay> {
 
                GestureDetector(
                      onTap: (()async {
+                     
                             await assetAudioPlayer.playOrPause();
                             setState(() {
-                              
+                                isLotteplaying = assetAudioPlayer.isPlaying.value;
+                       print(isLotteplaying);
+ 
                             });
                        
                      }),
@@ -183,7 +193,15 @@ class _bottomsheet_musicPlayState extends State<bottomsheet_musicPlay> {
                    ),
 
                GestureDetector(
-                 onTap: () => assetAudioPlayer.next(),
+                 onTap: () {
+
+                   assetAudioPlayer.next();
+                   setState(() {
+                            
+                    isLotteplaying = true;
+ 
+                   });
+                   },
                  child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(

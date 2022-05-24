@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:raaga/Pages/pageView_playlist.dart';
@@ -57,7 +59,7 @@ class _playlistTileState extends State<playlistTile> {
         ),
         title: Row(
           children: [
-            const Padding(
+            const Padding(  
               padding: EdgeInsets.only(right: 5, left: 5),
               child: Icon(
                 Icons.my_library_music_rounded,
@@ -71,7 +73,7 @@ class _playlistTileState extends State<playlistTile> {
                 widget.PlaylistName,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(194, 221, 212, 241),
+                  color: Color.fromARGB(194, 200, 197, 207),
                   fontSize: 20,
                 ),
               ),
@@ -102,6 +104,11 @@ class _playlistTileState extends State<playlistTile> {
           ],
         ),
         trailing: PopupMenuButton(
+             shape: const RoundedRectangleBorder(         //Adding Round Border
+              borderRadius: BorderRadius.all(
+                Radius.circular(20.0),
+              ),
+            ),
           icon: const FaIcon(
             FontAwesomeIcons.circleChevronDown,
             size: 17,
@@ -111,16 +118,28 @@ class _playlistTileState extends State<playlistTile> {
             PopupMenuItem(
               value: 1,
               onTap: () async {},
-              child: const Text(
-                "Edit PlayList",
-              ),
+              child: Row(children: const [
+                Padding(
+                  padding: EdgeInsets.only(right: 15),
+                  child: Icon(FontAwesomeIcons.edit),
+                ),
+                Text(
+                "Edit Playlist",
+              )
+              ]),
             ),
             PopupMenuItem(
               value: 2,
               onTap: () async {},
-              child: const Text(
-                "Delete PlayList",
-              ),
+              child:Row(children: const [
+                Padding(
+                  padding: EdgeInsets.only(right: 15),
+                  child: Icon(FontAwesomeIcons.trash),
+                ),
+                Text(
+                "Delete Playlist",
+              )
+              ]),
             ),
           ],
           onSelected: (value) async {
@@ -128,14 +147,16 @@ class _playlistTileState extends State<playlistTile> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) => AlertDialog(
-                  title: const Text(
-                    'Edit Playlist',
-                    textAlign: TextAlign.center,
-                  ),
+
+                   shape: const RoundedRectangleBorder(
+         borderRadius: BorderRadius.all(Radius.circular(20.0))),
+         backgroundColor: Color.fromARGB(255, 205, 206, 234),
+      title: const Center(child: Text('Edit Playlist Name',style: TextStyle(color: Color.fromARGB(255, 89, 96, 110)),)),
+                 
                   content: Container(
                     width: 100,
                     height: 100,
-                    color: Colors.white,
+                    color: Color.fromARGB(255, 205, 206, 234),
                     child: Form(
                       key: _formKey,
                       child: Column(
@@ -143,17 +164,17 @@ class _playlistTileState extends State<playlistTile> {
                           TextFormField(
                             initialValue: widget.playlistNameFromTile,
                             decoration: InputDecoration(
-                                fillColor: Colors.white,
+                                fillColor: Color.fromARGB(255, 205, 206, 234),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                   borderSide: const BorderSide(
-                                    color: Colors.blue,
+                                    color: Color.fromARGB(239, 16, 35, 50),
                                   ),
                                 ),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                   borderSide: const BorderSide(
-                                    color: Color.fromARGB(255, 54, 101, 244),
+                                    color: Color.fromARGB(255, 12, 16, 28),
                                   ),
                                 ),
                                 hintText: "Edit Playlist Name"),
@@ -163,12 +184,12 @@ class _playlistTileState extends State<playlistTile> {
                             validator: (value) {
                               List keys = box.keys.toList();
                               if (value!.trim() == "") {
-                                return "name Required";
+                                return "Name Required";
                               }
                               if (keys
                                   .where((element) => element == value.trim())
                                   .isNotEmpty) {
-                                return "this name already exits";
+                                return "This name already exits";
                               }
                               return null;
                             },
@@ -180,7 +201,7 @@ class _playlistTileState extends State<playlistTile> {
                   actions: <Widget>[
                     TextButton(
                       onPressed: () => Navigator.pop(context, 'Cancel'),
-                      child: const Text('Cancel'),
+                      child: const Text('Cancel',style: TextStyle(color: Colors.black),),
                     ),
                     TextButton(
                       onPressed: () {
@@ -203,12 +224,12 @@ class _playlistTileState extends State<playlistTile> {
                             backgroundColor: Color.fromARGB(255, 42, 41, 123),
                             duration: Duration(seconds: 1),
                             content: const Text(
-                              "  Playlist re-named",
+                              "  Playlist Name Changed",
                             ),
                           ),
                         );
                       },
-                      child: const Text('Done'),
+                      child: const Text('Done',style: TextStyle(color: Colors.black),),
                     ),
                   ],
                 ),
@@ -221,6 +242,9 @@ class _playlistTileState extends State<playlistTile> {
               showDialog<String>(
                 context: context,
                 builder: (BuildContext context) => AlertDialog(
+                   shape: const RoundedRectangleBorder(
+         borderRadius: BorderRadius.all(Radius.circular(20.0))),
+         backgroundColor: Color.fromARGB(255, 205, 206, 234),
                   title: const Text(
                     'Delete Playlist',
                     textAlign: TextAlign.center,
@@ -231,7 +255,7 @@ class _playlistTileState extends State<playlistTile> {
                       onPressed: () => Navigator.pop(
                         context,
                       ),
-                      child: const Text('Cancel'),
+                      child: const Text('Cancel',style: TextStyle(color: Colors.black)),
                     ),
                     TextButton(
                       onPressed: () {
@@ -250,12 +274,12 @@ class _playlistTileState extends State<playlistTile> {
                                   BorderRadius.all(Radius.circular(20)),
                             ),
                             backgroundColor: Color.fromARGB(255, 42, 41, 123),
-                            content: Text("play List deleted"),
+                            content: Text("Playlist deleted"),
                           ),
                         );
                         Navigator.pop(context);
                       },
-                      child: const Text('Done'),
+                      child: const Text('Done',style: TextStyle(color: Colors.black)),
                     ),
                   ],
                 ),

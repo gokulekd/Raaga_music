@@ -70,7 +70,7 @@ class _pageView_FaouriteState extends State<pageView_Faourite>
     return Scaffold(
      
      floatingActionButton : Padding(
-       padding: const EdgeInsets.only(bottom: 65),
+       padding: const EdgeInsets.only(bottom:80),
        child: FloatingActionButton.extended(
           clipBehavior: Clip.none,
          elevation: 20,

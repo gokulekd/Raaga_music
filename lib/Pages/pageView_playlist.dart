@@ -4,10 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:raaga/Widgets/PlayLists/createNewPlayList.dart';
 import 'package:raaga/Widgets/PlayLists/createNewPlaylistButton.dart';
-import 'package:raaga/Widgets/PlayLists/editButton.dart';
-
 import 'package:raaga/Widgets/PlayLists/playListTIle.dart';
 import 'package:raaga/Widgets/PlayLists/playlist_SongView_page.dart';
 import 'package:raaga/dataBase/songModel.dart';
@@ -84,8 +81,8 @@ class _pageview_PlaylistState extends State<pageview_Playlist>
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.fastLinearToSlowEaseIn,
-                  height: isTapped ? 30.w.h : 40.w.h,
-                  width: isTapped ? 190.w.h : 200.w.h,
+                  height: isTapped ? 25.w.h : 35.w.h,
+                  width: isTapped ?150.w.h : 160.w.h,
                   decoration: BoxDecoration(
                     color: isTapped
                         ? const Color.fromARGB(255, 190, 153, 193)

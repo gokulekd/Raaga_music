@@ -5,9 +5,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:raaga/Pages/Screen_Splash.dart';
-import 'package:raaga/Widgets/musicPlayPage/addToPlayList.dart';import 'package:raaga/Widgets/musicPlayPage/shuffleSongs.dart';
+import 'package:raaga/Widgets/musicPlayPage/addToPlayList.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:raaga/dataBase/songModel.dart';
+
+bool isLotteplaying = true;
 
 class DurationState {
   const DurationState({required this.progress, required this.total});
@@ -18,6 +20,7 @@ class DurationState {
 
 class musicPlay_pageView extends StatefulWidget {
   List<Audio> AllSong = [];
+  // ignore: non_constant_identifier_names
   dynamic assetAudio_musicplayPage;
   musicPlay_pageView(
       {Key? key, required this.AllSong, required this.assetAudio_musicplayPage})
@@ -29,15 +32,11 @@ class musicPlay_pageView extends StatefulWidget {
 
 final box = Raaga_SongData.getInstance();
 
-class _musicPlay_pageViewState extends State<musicPlay_pageView>{
+class _musicPlay_pageViewState extends State<musicPlay_pageView>with SingleTickerProviderStateMixin {
 
-bool isPlaying = false;
+  bool isPlaying = false;
   bool isLooping = false;
   bool isShuffle = false;
-  bool isLotteplaying = true;
-
-  
-  
 
   final AssetsAudioPlayer assetAudioPlayer = AssetsAudioPlayer.withId("0");
 
@@ -49,55 +48,57 @@ bool isPlaying = false;
     return source.firstWhere((element) => element.path == fromPath);
   }
 
+
+
   @override
   Widget build(BuildContext context) {
-    
- bool lotteBool= false;
-    var lotte = Lottie.asset("assets/json/19782-listening-to-music.json",animate: isLotteplaying);
+
+ 
+    var lotte = Lottie.asset("assets/json/19782-listening-to-music.json",
+        animate: isLotteplaying);
 
     return assetAudioPlayer.builderCurrent(
         builder: (BuildContext context, Playing? playing) {
       final myAudio = find(widget.AllSong, playing!.audio.assetAudioPath);
       final temp = databaseSongs(dbSongs_dataBase, myAudio.metas.id.toString());
       return Scaffold(
-        backgroundColor: Color(0xff262054),
+        backgroundColor: const Color(0xff262054),
         appBar: AppBar(
           toolbarHeight: 90,
           leading: IconButton(
             onPressed: () {
-           
               Navigator.pop(context);
             },
-            icon: Icon(Icons.keyboard_arrow_down_sharp),
+            icon: const Icon(Icons.keyboard_arrow_down_sharp),
           ),
-          backgroundColor: Color.fromARGB(255, 46, 39, 101),
+          backgroundColor: const Color.fromARGB(255, 46, 39, 101),
           elevation: 20,
           centerTitle: true,
           title: Column(
             children: [
-              Text(
+              const Text(
                 "Now Playing",
                 style: TextStyle(
                     color: Color.fromARGB(116, 255, 255, 255), fontSize: 17),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(
                 myAudio.metas.title!,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                    color: Color.fromARGB(255, 233, 233, 233), fontSize: 17),
+                style: const TextStyle(
+                    color: const Color.fromARGB(255, 233, 233, 233), fontSize: 17),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(
                 myAudio.metas.artist!,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(
+                style: const TextStyle(
                     color: Color.fromARGB(116, 255, 255, 255), fontSize: 15),
               ),
             ],
@@ -108,7 +109,7 @@ bool isPlaying = false;
             children: [
               Center(
                 child: Container(
-                  margin: EdgeInsets.only(top: 20),
+                  margin: const EdgeInsets.only(top: 20),
                   width: 340,
                   height: 340,
                   decoration:
@@ -120,17 +121,15 @@ bool isPlaying = false;
                         id: int.parse(myAudio.metas.id!),
                         artworkBorder: BorderRadius.circular(5.0),
                         type: ArtworkType.AUDIO),
-                        
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-   
                   StatefulBuilder(
                     builder: (BuildContext context,
                         void Function(void Function()) setState) {
@@ -142,25 +141,26 @@ bool isPlaying = false;
 
                                   assetAudioPlayer
                                       .setLoopMode(LoopMode.playlist);
-                                   assetAudioPlayer.toggleShuffle();
-                                     ScaffoldMessenger.of(context).removeCurrentSnackBar();
-                              ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                behavior: SnackBarBehavior.floating,
-                                margin: EdgeInsets.only(
-                                    bottom: 0, right: 10, left: 10),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(20)),
-                                ),
-                                backgroundColor:
-                                    Color.fromARGB(255, 42, 41, 123),
-                                    duration: Duration(milliseconds: 500),
-                                content: Text(
-                               " shuffled Song Play",
-                                ),
-                              ),
-                            );
+                                  assetAudioPlayer.toggleShuffle();
+                                  ScaffoldMessenger.of(context)
+                                      .removeCurrentSnackBar();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      behavior: SnackBarBehavior.floating,
+                                      margin: EdgeInsets.only(
+                                          bottom: 0, right: 10, left: 10),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20)),
+                                      ),
+                                      backgroundColor:
+                                          Color.fromARGB(255, 42, 41, 123),
+                                      duration: Duration(milliseconds: 500),
+                                      content: Text(
+                                        " shuffled Song Play",
+                                      ),
+                                    ),
+                                  );
                                 });
                               },
                               child: Container(
@@ -168,9 +168,9 @@ bool isPlaying = false;
                                 height: 35,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
-                                  color: Color.fromARGB(255, 235, 227, 243),
+                                  color: const Color.fromARGB(255, 235, 227, 243),
                                 ),
-                                child: Icon(Icons.loop),
+                                child: const Icon(Icons.loop),
                               ),
                             )
                           : GestureDetector(
@@ -179,27 +179,25 @@ bool isPlaying = false;
                                   isShuffle = false;
                                   assetAudioPlayer.toggleShuffle();
 
-
-                                     ScaffoldMessenger.of(context).removeCurrentSnackBar();
-                              ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                behavior: SnackBarBehavior.floating,
-                                margin: EdgeInsets.only(
-                                    bottom: 0, right: 10, left: 10),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(20)),
-                                ),
-                                backgroundColor:
-                                    Color.fromARGB(255, 42, 41, 123),
+                                  ScaffoldMessenger.of(context)
+                                      .removeCurrentSnackBar();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      behavior: SnackBarBehavior.floating,
+                                      margin: EdgeInsets.only(
+                                          bottom: 0, right: 10, left: 10),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20)),
+                                      ),
+                                      backgroundColor:
+                                          Color.fromARGB(255, 42, 41, 123),
                                       duration: Duration(milliseconds: 500),
-                                content: Text(
-                               " looped Song Play",
-                                ),
-                              ),
-
-
-                            );
+                                      content: Text(
+                                        " looped Song Play",
+                                      ),
+                                    ),
+                                  );
                                 });
                               },
                               child: Container(
@@ -207,9 +205,9 @@ bool isPlaying = false;
                                 height: 35,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
-                                  color: Color.fromARGB(255, 210, 200, 220),
+                                  color: const Color.fromARGB(255, 210, 200, 220),
                                 ),
-                                child: Icon(Icons.shuffle_outlined),
+                                child: const Icon(Icons.shuffle_outlined),
                               ),
                             );
                     },
@@ -220,33 +218,28 @@ bool isPlaying = false;
                           .isEmpty
                       ? GestureDetector(
                           onTap: () async {
-
-  
                             mainFavouriteList!.add(temp);
                             await box.put("favourites", mainFavouriteList!);
                             setState(() {
-                       ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                              ScaffoldMessenger.of(context)
+                                  .removeCurrentSnackBar();
                               ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                behavior: SnackBarBehavior.floating,
-                                margin: EdgeInsets.only(
-                                    bottom: 0, right: 10, left: 10),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(20)),
+                                const SnackBar(
+                                  behavior: SnackBarBehavior.floating,
+                                  margin: EdgeInsets.only(
+                                      bottom: 0, right: 10, left: 10),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20)),
+                                  ),
+                                  backgroundColor:
+                                      Color.fromARGB(255, 42, 41, 123),
+                                  duration: Duration(milliseconds: 500),
+                                  content: Text(
+                                    " Added to Favourite",
+                                  ),
                                 ),
-                                backgroundColor:
-                                    Color.fromARGB(255, 42, 41, 123),
-                                      duration: Duration(milliseconds: 500),
-                                content: Text(
-                               " Added to Favourite",
-                                ),
-                              ),
-
-                            );
-
-                        
-                              
+                              );
                             });
                           },
                           child: Container(
@@ -254,55 +247,56 @@ bool isPlaying = false;
                             height: 35,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
-                              color: Color.fromARGB(255, 210, 200, 220),
+                              color: const Color.fromARGB(255, 210, 200, 220),
                             ),
-                            child: Icon(Icons.favorite_border),
+                            child: const Icon(Icons.favorite_border),
                           ),
                         )
-                      : 
-                       GestureDetector(
-                        onTap: () async {
+                      : GestureDetector(
+                          onTap: () async {
                             mainFavouriteList!.removeWhere((element) =>
                                 element.id.toString() == temp.id.toString());
                             await box.put("favourites", mainFavouriteList!);
 
-                              ScaffoldMessenger.of(context).removeCurrentSnackBar();
-                              ScaffoldMessenger.of(context).showSnackBar(
+                            ScaffoldMessenger.of(context)
+                                .removeCurrentSnackBar();
+                            ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 behavior: SnackBarBehavior.floating,
                                 margin: EdgeInsets.only(
                                     bottom: 0, right: 10, left: 10),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(20)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
                                 ),
                                 backgroundColor:
                                     Color.fromARGB(255, 51, 49, 146),
-                                      duration: Duration(milliseconds: 500),
+                                duration: Duration(milliseconds: 500),
                                 content: Text(
-                               " Removed from Favourite",
+                                  " Removed from Favourite",
                                 ),
                               ),
-                              );
-                            setState(() {
-                              
-                            });
+                            );
+                            setState(() {});
                           },
                           child: Container(
                             width: 35,
                             height: 35,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
-                              color: Color.fromARGB(255, 210, 200, 220),
+                              color: const Color.fromARGB(255, 210, 200, 220),
                             ),
-                             child: Icon(Icons.favorite,color: Colors.red,),
+                            child: const Icon(
+                              Icons.favorite,
+                              color: Colors.red,
+                            ),
                           ),
                         ),
                   addToPlayList(
-                      songId_For_NowPlaying:myAudio.metas.id.toString()),
+                      songId_For_NowPlaying: myAudio.metas.id.toString()),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Padding(
@@ -314,10 +308,10 @@ bool isPlaying = false;
                   return ProgressBar(
                     timeLabelPadding: 5,
                     timeLabelLocation: TimeLabelLocation.above,
-                    timeLabelTextStyle: TextStyle(color: Colors.white),
-                    progressBarColor: Color.fromARGB(255, 255, 255, 255),
-                    baseBarColor: Color.fromARGB(255, 66, 36, 137),
-                    thumbColor: Color.fromARGB(255, 124, 116, 230),
+                    timeLabelTextStyle: const TextStyle(color: Colors.white),
+                    progressBarColor: const Color.fromARGB(255, 255, 255, 255),
+                    baseBarColor: const Color.fromARGB(255, 66, 36, 137),
+                    thumbColor: const Color.fromARGB(255, 124, 116, 230),
                     barHeight: 5.0,
                     thumbRadius: 12.0,
                     progress: currentPos,
@@ -330,64 +324,57 @@ bool isPlaying = false;
                   );
                 }),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   IconButton(
-                      onPressed: () async {
+                      onPressed: () {
                         assetAudioPlayer.previous();
+                        setState(() {
+                          isLotteplaying = true;
+                        });
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.fast_rewind,
                         size: 30,
                         color: Color.fromARGB(183, 255, 255, 255),
                       )),
-                   GestureDetector(
-                     onTap: (()async {
-                    
-                            await assetAudioPlayer.playOrPause();
-                           
-                            setState(() {
-                             
-                            isLotteplaying = !isLotteplaying;
-                           
-                            
-                            });
-                       
-                     }),
-                     child: Container(
-                  
-                        height: 65,
-                        width: 65,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                             color: Color.fromARGB(255, 182, 165, 200)),
-                        child: PlayerBuilder.isPlaying(
-                            player: assetAudioPlayer,
-                            builder: (context, isPlaying) {
-                              isPlaying?lotteBool==true:lotteBool == false;
-                              return 
-                              
-                                Icon(
-                                  isPlaying ? Icons.pause  : Icons.play_arrow,
-                                  size: 30.h.w,color: Color.fromARGB(255, 86, 64, 147),
-                                  
-                                
-                              );
-                            }),
-                      ),
-                   ),
+                  GestureDetector(
+                    onTap: (() async {
+                      await assetAudioPlayer.playOrPause();
+
+                      setState(() {
+                        isLotteplaying = assetAudioPlayer.isPlaying.value;
+                      });
+                    }),
+                    child: Container(
+                      height: 65,
+                      width: 65,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: const Color.fromARGB(255, 182, 165, 200)),
+                      child: PlayerBuilder.isPlaying(
+                          player: assetAudioPlayer,
+                          builder: (context, isPlaying) {
+                            return Icon(
+                              isPlaying ? Icons.pause : Icons.play_arrow,
+                              size: 30.h.w,
+                              color: const Color.fromARGB(255, 86, 64, 147),
+                            );
+                          }),
+                    ),
+                  ),
                   IconButton(
                       onPressed: () {
                         assetAudioPlayer.next();
                         setState(() {
-                            
+                          isLotteplaying = true;
                         });
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.fast_forward,
                         size: 30,
                         color: Color.fromARGB(183, 255, 255, 255),

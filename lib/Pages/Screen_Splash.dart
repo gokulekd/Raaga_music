@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:raaga/Widgets/bottomNavBar/BottomNavbar.dart';
@@ -96,12 +97,12 @@ class _screen_splashScreenState extends State<screen_splashScreen> {
             curve: Curves.fastLinearToSlowEaseIn,
             width: 393.w,
             height: 810.h,
-            color: Colors.deepPurple,
+            color:  Color(0xff262054),
           ),
           Column(
             children: [
               const SizedBox(
-                height: 105,
+                height: 90
               ),
               Text(
                 'Raaga',
@@ -111,9 +112,8 @@ class _screen_splashScreenState extends State<screen_splashScreen> {
                   color: Colors.white,
                 ),
               ),
-              const SizedBox(
-                height: 50,
-              ),
+              SizedBox(height: 40.5.h),
+            
               Text(
                 'Play Your Favourite Tunes',
                 style: TextStyle(
@@ -122,13 +122,15 @@ class _screen_splashScreenState extends State<screen_splashScreen> {
                   color: Colors.white,
                 ),
               ),
-              SizedBox(
-                height: 50.w.h,
-              ),
+                SizedBox(height: 30.5.h),
+             Container(
+                height: 80,
+                width: 80,
+                child: Lottie.asset("assets/json/14467-music.json")),
               Center(
                 child: Container(
                   width: double.infinity,
-                  height: 425.5.h,
+                  height: 400.h,
                   decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(

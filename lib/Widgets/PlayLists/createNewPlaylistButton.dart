@@ -25,9 +25,12 @@ class _createNewPlaylistButtonState extends State<createNewPlaylistButton> {
     return 
      
    AlertDialog(
-      title: const Text('Playlist Name'),
+      shape: const RoundedRectangleBorder(
+         borderRadius: BorderRadius.all(Radius.circular(20.0))),
+         backgroundColor: Color.fromARGB(255, 205, 206, 234),
+      title: const Center(child: Text('Playlist Name',style: TextStyle(color: Color.fromARGB(255, 89, 96, 110)),)),
       content: Form(
-          key: formkey,
+          key: formkey,                           
           child: TextFormField(
             onChanged: (value) {
               title = value.trim();

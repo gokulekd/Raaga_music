@@ -34,6 +34,11 @@ class _song_tile_menuState extends State<song_tile_menu> {
     final temp = databaseSongs(dbSongs_dataBase, widget.songId);
 
     return PopupMenuButton(
+       shape: const RoundedRectangleBorder(         //Adding Round Border
+              borderRadius: BorderRadius.all(
+                Radius.circular(20.0),
+              ),
+            ),
       icon: const FaIcon(
         FontAwesomeIcons.circleChevronDown,
         size: 17,

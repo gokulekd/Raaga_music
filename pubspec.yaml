@@ -88,6 +88,8 @@ flutter:
     - assets/songs logo.png
     - assets/app Icon.png
     - assets/json/19782-listening-to-music.json
+    - assets/json/loading screen.json
+    - assets/json/14467-music.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

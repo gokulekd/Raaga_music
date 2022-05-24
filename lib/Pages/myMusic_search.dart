@@ -52,11 +52,17 @@ class _searchBarState extends State<searchBar> {
 
   @override
   Widget build(BuildContext context) {
+
+      List<Audio> searchResult = [];
+
+
        double _w = MediaQuery.of(context).size.width;
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
-    List<Audio> searchTitle = allSongs.where((element) {
+
+
+      List<Audio> searchTitle = allSongs.where((element) {
       return element.metas.title!.toLowerCase().startsWith(
             search.toLowerCase(),
           );
@@ -67,13 +73,18 @@ class _searchBarState extends State<searchBar> {
             search.toLowerCase(),
           );
     }).toList();
-
-    List<Audio> searchResult = [];
+ 
+   
+   searchResult;
     if (searchTitle.isNotEmpty) {
       searchResult = searchTitle;
     } else {
       searchResult = searchArtist;
     }
+   setState(() {
+     
+   });
+
 
     return Scaffold(
      backgroundColor:const Color(0xff262054),
@@ -155,12 +166,16 @@ class _searchBarState extends State<searchBar> {
                 onChanged: (value) {
                   setState(
                     () {
+                       
                       search = value.trim();
                     },
                   );
                 },
               ),
             ),
+
+
+            
              search.isEmpty?
                 Expanded(
                         child: ListView.builder(
