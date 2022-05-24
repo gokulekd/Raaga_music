@@ -2,16 +2,12 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:raaga/Pages/Screen_Splash.dart';
-import 'package:raaga/Widgets/bottomsheet_playmusic/playbutton_bottomSheet.dart';
-import 'package:raaga/Widgets/musicPlayPage/addToPlayList.dart';
-import 'package:raaga/Widgets/musicPlayPage/shuffleSongs.dart';
+import 'package:raaga/Widgets/musicPlayPage/addToPlayList.dart';import 'package:raaga/Widgets/musicPlayPage/shuffleSongs.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:raaga/dataBase/songModel.dart';
-import 'package:share_plus/share_plus.dart';
 
 class DurationState {
   const DurationState({required this.progress, required this.total});

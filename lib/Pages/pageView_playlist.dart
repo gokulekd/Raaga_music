@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_const
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:raaga/Widgets/PlayLists/createNewPlayList.dart';
@@ -9,8 +10,6 @@ import 'package:raaga/Widgets/PlayLists/editButton.dart';
 
 import 'package:raaga/Widgets/PlayLists/playListTIle.dart';
 import 'package:raaga/Widgets/PlayLists/playlist_SongView_page.dart';
-import 'package:raaga/Widgets/bottomNavBar/BottomNavbar.dart';
-import 'package:raaga/Widgets/favourite/playAll_Button.dart';
 import 'package:raaga/dataBase/songModel.dart';
 
 
@@ -33,12 +32,12 @@ class _pageview_PlaylistState extends State<pageview_Playlist>
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
-        backgroundColor: Color(0xff262054),
+        backgroundColor: const Color(0xff262054),
         centerTitle: true,
         title: Container(
           padding: const EdgeInsets.only(top: 3),
-          width: 390,
-          height: 40,
+          width: 390.w.h,
+          height: 40.w.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             color: const Color.fromARGB(255, 61, 45, 104),
@@ -80,17 +79,17 @@ class _pageview_PlaylistState extends State<pageview_Playlist>
                   showDialog<String>(
                       context: context,
                       builder: (BuildContext context) =>
-                          createNewPlaylistButton());
+                          const createNewPlaylistButton());
                 },
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.fastLinearToSlowEaseIn,
-                  height: isTapped ? 30 : 40,
-                  width: isTapped ? 190 : 200,
+                  height: isTapped ? 30.w.h : 40.w.h,
+                  width: isTapped ? 190.w.h : 200.w.h,
                   decoration: BoxDecoration(
                     color: isTapped
-                        ? Color.fromARGB(255, 190, 153, 193)
-                        : Color.fromARGB(255, 152, 152, 206),
+                        ? const Color.fromARGB(255, 190, 153, 193)
+                        : const Color.fromARGB(255, 152, 152, 206),
                     borderRadius: const BorderRadius.all(
                       const Radius.circular(30),
                     ),
@@ -120,7 +119,7 @@ class _pageview_PlaylistState extends State<pageview_Playlist>
                   builder: (context, boxes, _) {
                     playlistsname = box.keys.toList();
                     return ListView.builder(
-                      padding: EdgeInsets.only(bottom: 100),
+                      padding: const EdgeInsets.only(bottom: 100),
                         itemCount: playlistsname.length,
                         itemBuilder: (context, index) {
 
@@ -145,7 +144,7 @@ class _pageview_PlaylistState extends State<pageview_Playlist>
                                       SongsNumber:
                                           playlistSongs.length.toString()),
                                 )
-                                : SizedBox(),
+                                : const SizedBox(),
                           );
                         },
                         );

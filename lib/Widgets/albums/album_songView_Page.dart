@@ -22,8 +22,8 @@ class _album_SongView_pageState extends State<album_SongView_page> {
       double _w = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 187, 116, 194),
-        title: Text("Album Songs"),
+        backgroundColor: const Color.fromARGB(255, 187, 116, 194),
+        title: const Text("Album Songs"),
         centerTitle: true,
 
       ),
@@ -36,12 +36,12 @@ class _album_SongView_pageState extends State<album_SongView_page> {
           ),
           builder: (context, item) {
             if (item.data == null) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             }
             if (item.data!.isEmpty) {
-              return Center(
+              return const Center(
                 child: Text(" No Songs Found"),
               );
             }
@@ -67,14 +67,14 @@ class _album_SongView_pageState extends State<album_SongView_page> {
                     width: _w,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: Color(0xffB993CB),
+                      color: const Color(0xffB993CB),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          margin: EdgeInsets.only(left: 10),
+                          margin: const EdgeInsets.only(left: 10),
                           width: 55.w,
                           height: 55.h,
                           decoration: BoxDecoration(
@@ -97,8 +97,8 @@ class _album_SongView_pageState extends State<album_SongView_page> {
                             Row(
                               children: [
                                 Container(
-                                  margin: EdgeInsets.only(right: 5),
-                                  child: Icon(
+                                  margin: const EdgeInsets.only(right: 5),
+                                  child: const Icon(
                                     Icons.music_note,
                                     size: 17,
                                     color: Colors.white,
@@ -106,13 +106,13 @@ class _album_SongView_pageState extends State<album_SongView_page> {
                                 ),
                                 Center(
                                   child: Container(
-                                    margin: EdgeInsets.only(right: 4),
+                                    margin: const EdgeInsets.only(right: 4),
                                     width: 185.w,
                                     height: 25.h,
                                     child: Marquee(
                                       velocity: 20,
                                       text: item.data![index].displayNameWOExt,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.w600,
                                         color: Colors.black,
@@ -125,8 +125,8 @@ class _album_SongView_pageState extends State<album_SongView_page> {
                             Row(
                               children: [
                                 Container(
-                                  margin: EdgeInsets.only(right: 5),
-                                  child: Icon(
+                                  margin: const EdgeInsets.only(right: 5),
+                                  child: const Icon(
                                     Icons.album,
                                     size: 17,
                                     color: Colors.white,
@@ -139,7 +139,7 @@ class _album_SongView_pageState extends State<album_SongView_page> {
                                     height: 18.h,
                                     child: Text(
                                       item.data![index].artist.toString(),
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 15,
                                         color: Colors.black,
                                       ),
@@ -153,7 +153,7 @@ class _album_SongView_pageState extends State<album_SongView_page> {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
+                          children: const [
                             
                           
                           ],

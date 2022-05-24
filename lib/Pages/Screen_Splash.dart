@@ -94,14 +94,14 @@ class _screen_splashScreenState extends State<screen_splashScreen> {
           AnimatedContainer(
             duration: const Duration(milliseconds: 0),
             curve: Curves.fastLinearToSlowEaseIn,
-            width: 393.w.h,
-            height: 810.w.h,
+            width: 393.w,
+            height: 810.h,
             color: Colors.deepPurple,
           ),
           Column(
             children: [
               const SizedBox(
-                height: 130,
+                height: 105,
               ),
               Text(
                 'Raaga',

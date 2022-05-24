@@ -1,12 +1,11 @@
+// ignore_for_file: unnecessary_const
+
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:raaga/Widgets/musicPlayPage/pageView_musicPlay.dart';
-
-import 'package:raaga/Widgets/bottomsheet_playmusic/playbutton_bottomSheet.dart';
-
 
 class bottomsheet_musicPlay extends StatefulWidget {
   List<Audio> Allsongs_bottomsheet = [];
@@ -52,13 +51,13 @@ class _bottomsheet_musicPlayState extends State<bottomsheet_musicPlay> {
             find(widget.Allsongs_bottomsheet, playing!.audio.assetAudioPath);
 
         return Container(
-          color: Color.fromARGB(255, 47, 40, 101),
+          color: const Color.fromARGB(255, 47, 40, 101),
           width: double.infinity,
-          height: 75,
+          height: 75.h,
           child: Row(
             children: [
               Container(
-                margin: EdgeInsets.only(left: 10),
+                margin: const EdgeInsets.only(left: 10),
                 width: 55.w,
                 height: 55.h,
                 decoration:
@@ -79,19 +78,19 @@ class _bottomsheet_musicPlayState extends State<bottomsheet_musicPlay> {
                 children: [
                   Row(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10,left: 5),
-                        child: Icon(
+                      const Padding(
+                        padding: EdgeInsets.only(top: 10,left: 5),
+                        child: const Icon(
                           Icons.music_note,
                           size: 17,
-                          color: Color.fromARGB(207, 220, 214, 231),
+                          color: const Color.fromARGB(207, 220, 214, 231),
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 10),
+                        margin: const EdgeInsets.only(top: 10),
                            padding: const EdgeInsets.only(left: 5,),
-                        height: 20,
-                        width: 150,
+                        height: 20.h,
+                        width: 150.w,
                         child: Text(
                           myAudio.metas.title!,
                           maxLines: 1,
@@ -103,8 +102,8 @@ class _bottomsheet_musicPlayState extends State<bottomsheet_musicPlay> {
                   ),
                   Row(
                     children: [
-                      Padding(
-                            padding: const EdgeInsets.only(top: 10,left: 5),
+                      const Padding(
+                            padding: EdgeInsets.only(top: 10,left: 5),
                         child: Icon(
                           Icons.album,
                           size: 17,
@@ -113,17 +112,17 @@ class _bottomsheet_musicPlayState extends State<bottomsheet_musicPlay> {
                       ),
                       Container(
                  
-                        margin: EdgeInsets.only(top: 12),
+                        margin: const EdgeInsets.only(top: 12),
                         padding: const EdgeInsets.only(left: 10,),
-                        height: 20,
-                        width: 150,
+                        height: 20.h,
+                        width: 150.w,
                         child: Text(
                           myAudio.metas.artist!,
                           
 
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Color.fromARGB(255, 193, 190, 177)
                           )
                           
@@ -141,14 +140,14 @@ class _bottomsheet_musicPlayState extends State<bottomsheet_musicPlay> {
                  child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
-                    height: 28,
-                    width: 28,
+                    height: 22.h,
+                    width: 22.w,
                     decoration: BoxDecoration(
-                       color: Color.fromARGB(248, 172, 162, 193),
+                       color: const Color.fromARGB(248, 172, 162, 193),
                        borderRadius: BorderRadius.circular(50)
                     ),
                    
-                    child: Icon(Icons.fast_rewind_rounded,size: 20,),
+                    child: const Icon(Icons.fast_rewind_rounded,size: 20,),
                
                   )
                              ),
@@ -164,11 +163,11 @@ class _bottomsheet_musicPlayState extends State<bottomsheet_musicPlay> {
                      }),
                      child: Container(
                   
-                        height: 60,
-                        width: 60,
+                        height: 47.h,
+                        width: 50.w,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
-                             color:Color.fromARGB(255, 182, 165, 200)),
+                             color:const Color.fromARGB(255, 182, 165, 200)),
                         child: PlayerBuilder.isPlaying(
                             player: assetAudioPlayer,
                             builder: (context, isPlaying) {
@@ -176,7 +175,7 @@ class _bottomsheet_musicPlayState extends State<bottomsheet_musicPlay> {
                               
                                 Icon(
                                   isPlaying ? Icons.pause  : Icons.play_arrow,
-                                  size: 30.h.w,color: Color.fromARGB(255, 86, 64, 147),
+                                  size: 30.h.w,color: const Color.fromARGB(255, 86, 64, 147),
                                 
                               );
                             }),
@@ -188,14 +187,14 @@ class _bottomsheet_musicPlayState extends State<bottomsheet_musicPlay> {
                  child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
-                    height: 28,
-                    width: 28,
+                    height: 22.h,
+                    width: 22.w,
                     decoration: BoxDecoration(
-                       color: Color.fromARGB(248, 172, 162, 193),
+                       color: const Color.fromARGB(248, 172, 162, 193),
                        borderRadius: BorderRadius.circular(50)
                     ),
                    
-                    child: Icon(Icons.fast_forward_rounded,size: 20,),
+                    child: const Icon(Icons.fast_forward_rounded,size: 20,),
                
                   )
                              ),

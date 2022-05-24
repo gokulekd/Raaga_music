@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:raaga/Widgets/albums/album_songView_Page.dart';
 
 class albumTile extends StatefulWidget {
@@ -22,17 +23,17 @@ class _albumTileState extends State<albumTile> {
       },
       child: Center(
         child: Container(
-          margin: EdgeInsets.all(15),
-           padding: EdgeInsets.all(5),
-          height: 225,
-          width:160,
+          margin: const EdgeInsets.all(15),
+           padding: const EdgeInsets.all(5),
+          height: 225.h,
+          width:160.w,
     
           child: Column(
             children: [
         
               Container(
-                width: 140,
-                height: 160,
+                width: 140.w,
+                height: 160.h,
              decoration: BoxDecoration(
                borderRadius: BorderRadius.circular(20),
                color: Colors.blue
@@ -42,10 +43,10 @@ class _albumTileState extends State<albumTile> {
                child: Image.network("https://static.toiimg.com/photo/msid-88588422/88588422.jpg?45754",fit: BoxFit.cover,),
              ),
               ),
-               SizedBox(height: 10,),
-              Text("Bro Daddy",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
-              SizedBox(height: 10,),
-              Text("123Musiq.com"),
+               const SizedBox(height: 10,),
+              const Text("Bro Daddy",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+              const SizedBox(height: 10,),
+              const Text("123Musiq.com"),
     
             ],
           ),

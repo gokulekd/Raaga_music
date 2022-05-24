@@ -35,7 +35,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   Widget build(BuildContext context) {
     // ignore: non_constant_identifier_names
     final Pages = [
-      Screen_MyMusic(),
+      const Screen_MyMusic(),
       const pageView_Faourite(),
       searchBar(fullSongs: widget.allSongNav),
       const pageview_Playlist(),

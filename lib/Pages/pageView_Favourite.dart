@@ -75,8 +75,8 @@ class _pageView_FaouriteState extends State<pageView_Faourite>
           clipBehavior: Clip.none,
          elevation: 20,
          
-         splashColor: Color.fromARGB(255, 54, 136, 244),
-         backgroundColor: Color.fromARGB(255, 63, 101, 159),
+         splashColor: const Color.fromARGB(255, 54, 136, 244),
+         backgroundColor: const Color.fromARGB(255, 63, 101, 159),
   onPressed: () {
  showModalBottomSheet(
    shape: const RoundedRectangleBorder(
@@ -84,7 +84,7 @@ class _pageView_FaouriteState extends State<pageView_Faourite>
    context: context, builder: (ctx){
    
    return Container(
-       color: Color.fromARGB(255, 40, 16, 101),
+       color: const Color.fromARGB(255, 40, 16, 101),
        height:double.infinity,
        width: double.infinity,
        child: showModelBottomSheet_favourite_Screen(),
@@ -95,8 +95,8 @@ class _pageView_FaouriteState extends State<pageView_Faourite>
 
   },
 
-  icon: Icon(FontAwesomeIcons.music,size: 14,),
-  label: Text("Add Songs"),
+  icon: const Icon(FontAwesomeIcons.music,size: 14,),
+  label: const Text("Add Songs"),
 
 ),
      ),
@@ -111,8 +111,8 @@ class _pageView_FaouriteState extends State<pageView_Faourite>
         title: Container(
         
           padding: const EdgeInsets.only(top: 3),
-          width: 390,
-          height: 40,
+          width: 390.w.h,
+          height: 40.w.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             color: const Color.fromARGB(255, 61, 45, 104),

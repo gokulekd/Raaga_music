@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_const
+
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -83,8 +85,8 @@ class _searchBarState extends State<searchBar> {
         backgroundColor:const Color(0xff262054),
         title: Container(
           padding: const EdgeInsets.only(top: 3),
-          width: 390,
-          height: 40,
+          width: 390.w.h,
+          height: 40.w.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             color: const Color.fromARGB(255, 61, 45, 104),
@@ -127,11 +129,11 @@ class _searchBarState extends State<searchBar> {
 
 
                 decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(
+                  focusedBorder: const OutlineInputBorder(
+        borderSide: const BorderSide(
           color: Color.fromARGB(255, 197, 188, 211)
         ),
-        borderRadius: BorderRadius.all(Radius.circular(50),),
+        borderRadius: const BorderRadius.all(const Radius.circular(50),),
       ),
      
         border: const OutlineInputBorder(
@@ -148,7 +150,7 @@ class _searchBarState extends State<searchBar> {
                   ),
                   hintText: ' Search a song',
                   filled: true,
-                  fillColor: Color.fromARGB(152, 231, 230, 232),
+                  fillColor: const Color.fromARGB(152, 231, 230, 232),
                 ),
                 onChanged: (value) {
                   setState(
@@ -297,7 +299,7 @@ class _searchBarState extends State<searchBar> {
                           },
                         ),
                       ):
-                      SizedBox(),
+                      const SizedBox(),
 
 
 
