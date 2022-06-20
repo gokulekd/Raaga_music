@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'package:raaga/Pages/Screen_Splash.dart';
+import 'package:raaga/splash%20module/view/Screen_Splash.dart';
 import 'package:raaga/dataBase/songModel.dart';
 
-Box<songDataBaseModel>? SongDB;
+ Box<songDataBaseModel>? SongDB;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,14 +39,14 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       useInheritedMediaQuery: true,
       builder: (context, child) {
-        return MaterialApp(
+        return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'First Method',
           theme: ThemeData(
             primarySwatch: Colors.blue,
             textTheme: Typography.englishLike2018.apply(fontSizeFactor: 1.sp),
           ),
-          home: screen_splashScreen(),
+          home: ScreenSplash(),
         );
       },
     );

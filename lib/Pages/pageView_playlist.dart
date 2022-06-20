@@ -1,38 +1,33 @@
-// ignore_for_file: unnecessary_const
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:get/get.dart';
+import 'package:raaga/now%20playing%20module/controller/NowplayingController.dart';
 import 'package:raaga/Widgets/PlayLists/createNewPlaylistButton.dart';
 import 'package:raaga/Widgets/PlayLists/playListTIle.dart';
 import 'package:raaga/Widgets/PlayLists/playlist_SongView_page.dart';
 import 'package:raaga/dataBase/songModel.dart';
 
+class pageview_Playlist extends StatelessWidget {
+  pageview_Playlist({Key? key}) : super(key: key);
 
+  final box = Raaga_SongData.getInstance();
 
-class pageview_Playlist extends StatefulWidget {
-  const pageview_Playlist({Key? key}) : super(key: key);
+  List<songDataBaseModel> playlistSongs = [];
 
-  @override
-  State<pageview_Playlist> createState() => _pageview_PlaylistState();
-}
-final box = Raaga_SongData.getInstance();
-List playlistsname = box.keys.toList();
-List <songDataBaseModel>playlistSongs = [];
-
-class _pageview_PlaylistState extends State<pageview_Playlist>
-    with TickerProviderStateMixin {
   bool isTapped = false;
   @override
   Widget build(BuildContext context) {
+    List playlistsname = box.keys.toList();
     return Scaffold(
       appBar: AppBar(
+          automaticallyImplyLeading: false,
         toolbarHeight: 80,
         backgroundColor: const Color(0xff262054),
         centerTitle: true,
         title: Container(
-          padding: const EdgeInsets.only(top: 3),
+          padding: const EdgeInsets.only(top: 3),    
           width: 390.w.h,
           height: 40.w.h,
           decoration: BoxDecoration(
@@ -67,22 +62,17 @@ class _pageview_PlaylistState extends State<pageview_Playlist>
               child: InkWell(
                 highlightColor: Colors.transparent,
                 splashColor: Colors.transparent,
-                onHighlightChanged: (value) {
-                  setState(() {
-                    isTapped = value;
-                  },);
-                },
                 onTap: () async {
                   showDialog<String>(
                       context: context,
                       builder: (BuildContext context) =>
-                          const createNewPlaylistButton());
+                          createNewPlaylistButton());
                 },
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.fastLinearToSlowEaseIn,
                   height: isTapped ? 25.w.h : 35.w.h,
-                  width: isTapped ?150.w.h : 160.w.h,
+                  width: isTapped ? 150.w.h : 160.w.h,
                   decoration: BoxDecoration(
                     color: isTapped
                         ? const Color.fromARGB(255, 190, 153, 193)
@@ -99,7 +89,7 @@ class _pageview_PlaylistState extends State<pageview_Playlist>
                     ],
                   ),
                   child: const Center(
-                    child: const Text(
+                    child: Text(
                       "Create New Playlist",
                       style: TextStyle(
                           color: Color.fromARGB(255, 60, 26, 85),
@@ -111,42 +101,43 @@ class _pageview_PlaylistState extends State<pageview_Playlist>
               ),
             ),
             Expanded(
-              child: ValueListenableBuilder(
-                  valueListenable: box.listenable(),
-                  builder: (context, boxes, _) {
-                    playlistsname = box.keys.toList();
-                    return ListView.builder(
-                      padding: const EdgeInsets.only(bottom: 100),
-                        itemCount: playlistsname.length,
-                        itemBuilder: (context, index) {
+              child: GetBuilder<NowPlayingController>(
+                builder: (controller) {
+                  playlistsname = box.keys.toList();
+                  return ListView.builder(
+                    padding: const EdgeInsets.only(bottom: 100),
+                    itemCount: playlistsname.length,
+                    itemBuilder: (context, index) {
+                      var playlistSongs = box.get(playlistsname[index])!;
 
-                          var playlistSongs = box.get(playlistsname[index])!;
-
-                          return Container(
-                            child: playlistsname[index] != "musics" &&
-                                    playlistsname[index] != "favourites" &&
-                                    playlistsname[index] != "Recently_Played"
-                                ? GestureDetector(
-                                  onTap: (){
-                                    Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => Playlist_SongView_page(
-                    playlistName:playlistsname[index]),
-                                  ),
-); 
-                                  },
-                                  child: playlistTile(
-                                      playlistNameFromTile: playlistsname[index],
-                                      PlaylistName:
-                                          playlistsname[index].toString(),
-                                      SongsNumber:
-                                          playlistSongs.length.toString()),
-                                )
-                                : const SizedBox(),
-                          );
-                        },
-                        );
-                  },
-                  ),
+                      return Container(
+                        child: playlistsname[index] != "musics" &&
+                                playlistsname[index] != "favourites" &&
+                                playlistsname[index] != "Recently_Played"
+                            ? GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          Playlist_SongView_page(
+                                              playlistName:
+                                                  playlistsname[index]),
+                                    ),
+                                  );
+                                },
+                                child: playlistTile(
+                                    playlistNameFromTile: playlistsname[index],
+                                    PlaylistName:
+                                        playlistsname[index].toString(),
+                                    SongsNumber:
+                                        playlistSongs.length.toString()),
+                              )
+                            : const SizedBox(),
+                      );
+                    },
+                  );
+                },
+              ),
             ),
           ],
         ),

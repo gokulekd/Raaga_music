@@ -1,48 +1,28 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:raaga/Pages/Screen_Splash.dart';
+import 'package:raaga/splash%20module/view/Screen_Splash.dart';
 import 'package:raaga/Widgets/PlayLists/createNewPlaylistButton.dart';
 import 'package:raaga/Widgets/PlayLists/playListTIle.dart';
-import 'package:raaga/Widgets/PlayLists/playlist_SongView_page.dart';
 import 'package:raaga/dataBase/songModel.dart';
 
-import '../../Pages/pageView_playlist.dart';
-
-class playlistmain_View extends StatefulWidget {
+class playlistmain_View extends StatelessWidget {
   final songid;
   playlistmain_View({Key? key, required this.songid}) : super(key: key);
 
-  @override
-  State<playlistmain_View> createState() => _playlistmain_ViewState();
-}
+  final box = Raaga_SongData.getInstance();
 
-final box = Raaga_SongData.getInstance();
-
-class _playlistmain_ViewState extends State<playlistmain_View> {
-  List playlistsname = box.keys.toList();
   List<songDataBaseModel> playlistSongs = [];
 
   bool isTapped = false;
   @override
   Widget build(BuildContext context) {
+    List playlistsname = box.keys.toList();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: InkWell(
-            highlightColor: Colors.transparent,
-            splashColor: Colors.transparent,
-            onHighlightChanged: (value) {
-              setState(
-                () {
-                  isTapped = value;
-                },
-              );
-            },
             onTap: () async {
               showDialog<String>(
                   context: context,
@@ -91,7 +71,6 @@ class _playlistmain_ViewState extends State<playlistmain_View> {
                 itemBuilder: (context, index) {
                   var playlistSongs = box.get(playlistsname[index])!;
 
-              
                   return Container(
                       child: playlistsname[index] != "musics" &&
                               playlistsname[index] != "favourites" &&
@@ -100,18 +79,17 @@ class _playlistmain_ViewState extends State<playlistmain_View> {
                               onTap: () {
                                 final songid_to_platlist = dbSongs_dataBase
                                     .where((element) =>
-                                        element.id.toString() == widget.songid)
+                                        element.id.toString() == songid)
                                     .toList()[0];
-                           
+
                                 if (playlistSongs
                                     .where((element) =>
-                                        element.id.toString() == widget.songid)
+                                        element.id.toString() == songid)
                                     .isEmpty) {
                                   playlistSongs.add(songid_to_platlist);
                                   box.put(playlistsname[index], playlistSongs);
 
-                                   
-                                   ScaffoldMessenger.of(context)
+                                  ScaffoldMessenger.of(context)
                                       .removeCurrentSnackBar();
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
@@ -129,7 +107,7 @@ class _playlistmain_ViewState extends State<playlistmain_View> {
                                         " Done",
                                       ),
                                     ),
-                                  );  
+                                  );
                                 } else {
                                   ScaffoldMessenger.of(context)
                                       .removeCurrentSnackBar();
@@ -151,9 +129,6 @@ class _playlistmain_ViewState extends State<playlistmain_View> {
                                     ),
                                   );
                                 }
-
-                                setState(() {});
-                                Navigator.pop(context);
                               },
                               child: playlistTile(
                                   playlistNameFromTile: playlistsname[index],

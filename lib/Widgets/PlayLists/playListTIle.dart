@@ -1,9 +1,7 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:raaga/Pages/pageView_playlist.dart';
-import 'package:raaga/Widgets/PlayLists/playlist_SongView_page.dart';
+import 'package:get/get.dart';
 import 'package:raaga/dataBase/songModel.dart';
 
 class playlistTile extends StatefulWidget {
@@ -37,11 +35,10 @@ class _playlistTileState extends State<playlistTile> {
       height: 75,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color:  Color.fromARGB(255, 71, 64, 131),
+        color: Color.fromARGB(255, 71, 64, 131),
       ),
       child: ListTile(
         leading: Container(
-      
           decoration: BoxDecoration(
             color: Color.fromARGB(255, 22, 24, 63),
             borderRadius: BorderRadius.circular(15),
@@ -59,7 +56,7 @@ class _playlistTileState extends State<playlistTile> {
         ),
         title: Row(
           children: [
-            const Padding(  
+            const Padding(
               padding: EdgeInsets.only(right: 5, left: 5),
               child: Icon(
                 Icons.my_library_music_rounded,
@@ -104,11 +101,12 @@ class _playlistTileState extends State<playlistTile> {
           ],
         ),
         trailing: PopupMenuButton(
-             shape: const RoundedRectangleBorder(         //Adding Round Border
-              borderRadius: BorderRadius.all(
-                Radius.circular(20.0),
-              ),
+          shape: const RoundedRectangleBorder(
+            //Adding Round Border
+            borderRadius: BorderRadius.all(
+              Radius.circular(20.0),
             ),
+          ),
           icon: const FaIcon(
             FontAwesomeIcons.circleChevronDown,
             size: 17,
@@ -124,21 +122,21 @@ class _playlistTileState extends State<playlistTile> {
                   child: Icon(FontAwesomeIcons.edit),
                 ),
                 Text(
-                "Edit Playlist",
-              )
+                  "Edit Playlist",
+                )
               ]),
             ),
             PopupMenuItem(
               value: 2,
               onTap: () async {},
-              child:Row(children: const [
+              child: Row(children: const [
                 Padding(
                   padding: EdgeInsets.only(right: 15),
                   child: Icon(FontAwesomeIcons.trash),
                 ),
                 Text(
-                "Delete Playlist",
-              )
+                  "Delete Playlist",
+                )
               ]),
             ),
           ],
@@ -147,12 +145,14 @@ class _playlistTileState extends State<playlistTile> {
               showDialog(
                 context: context,
                 builder: (BuildContext context) => AlertDialog(
-
-                   shape: const RoundedRectangleBorder(
-         borderRadius: BorderRadius.all(Radius.circular(20.0))),
-         backgroundColor: Color.fromARGB(255, 205, 206, 234),
-      title: const Center(child: Text('Edit Playlist Name',style: TextStyle(color: Color.fromARGB(255, 89, 96, 110)),)),
-                 
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                  backgroundColor: Color.fromARGB(255, 205, 206, 234),
+                  title: const Center(
+                      child: Text(
+                    'Edit Playlist Name',
+                    style: TextStyle(color: Color.fromARGB(255, 89, 96, 110)),
+                  )),
                   content: Container(
                     width: 100,
                     height: 100,
@@ -201,7 +201,10 @@ class _playlistTileState extends State<playlistTile> {
                   actions: <Widget>[
                     TextButton(
                       onPressed: () => Navigator.pop(context, 'Cancel'),
-                      child: const Text('Cancel',style: TextStyle(color: Colors.black),),
+                      child: const Text(
+                        'Cancel',
+                        style: TextStyle(color: Colors.black),
+                      ),
                     ),
                     TextButton(
                       onPressed: () {
@@ -212,24 +215,11 @@ class _playlistTileState extends State<playlistTile> {
                           box.put(_title, playlists!);
                           box.delete(widget.playlistNameFromTile);
                         }
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            behavior: SnackBarBehavior.floating,
-                            margin: EdgeInsets.only(
-                                bottom: 75, right: 10, left: 10),
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                            ),
-                            backgroundColor: Color.fromARGB(255, 42, 41, 123),
-                            duration: Duration(seconds: 1),
-                            content: const Text(
-                              "  Playlist Name Changed",
-                            ),
-                          ),
-                        );
                       },
-                      child: const Text('Done',style: TextStyle(color: Colors.black),),
+                      child: const Text(
+                        'Done',
+                        style: TextStyle(color: Colors.black),
+                      ),
                     ),
                   ],
                 ),
@@ -242,9 +232,9 @@ class _playlistTileState extends State<playlistTile> {
               showDialog<String>(
                 context: context,
                 builder: (BuildContext context) => AlertDialog(
-                   shape: const RoundedRectangleBorder(
-         borderRadius: BorderRadius.all(Radius.circular(20.0))),
-         backgroundColor: Color.fromARGB(255, 205, 206, 234),
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                  backgroundColor: Color.fromARGB(255, 205, 206, 234),
                   title: const Text(
                     'Delete Playlist',
                     textAlign: TextAlign.center,
@@ -255,31 +245,18 @@ class _playlistTileState extends State<playlistTile> {
                       onPressed: () => Navigator.pop(
                         context,
                       ),
-                      child: const Text('Cancel',style: TextStyle(color: Colors.black)),
+                      child: const Text('Cancel',
+                          style: TextStyle(color: Colors.black)),
                     ),
                     TextButton(
-                      onPressed: () {
-                        box.delete(widget.playlistNameFromTile);
-                        setState(() {
-                          playlistsname_keys = box.keys.toList();
-                        });
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            duration: Duration(seconds: 1),
-                            behavior: SnackBarBehavior.floating,
-                            margin: EdgeInsets.only(
-                                bottom: 75, right: 10, left: 10),
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                            ),
-                            backgroundColor: Color.fromARGB(255, 42, 41, 123),
-                            content: Text("Playlist deleted"),
-                          ),
-                        );
-                        Navigator.pop(context);
+                      onPressed: () async {
+                        await box.delete(widget.playlistNameFromTile);
+                        playlistsname_keys = box.keys.toList();
+                        
+                        Get.back();
                       },
-                      child: const Text('Done',style: TextStyle(color: Colors.black)),
+                      child: const Text('Done',
+                          style: TextStyle(color: Colors.black)),
                     ),
                   ],
                 ),
@@ -291,161 +268,3 @@ class _playlistTileState extends State<playlistTile> {
     );
   }
 }
-      
-      
-//       Padding(
-//         padding: const EdgeInsets.all(8.0),
-//         child: Container(
-//           decoration: BoxDecoration(
-//             borderRadius: BorderRadius.circular(10),
-//              color: Color.fromARGB(255, 210, 189, 229),
-//           ),
-//           height: 75,
-//           width: 320,
-//         child: Row(
-//           children: [
-         
-//             Column(
-//               mainAxisAlignment: MainAxisAlignment.start,
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//              children: [
-//                     SizedBox(
-//                     height: 12,
-//                      ),
-//                         Container(
-//                           height: 30,
-//                           width: 220,
-                         
-//                           child: 
-//                         ),
-    
-//                       SizedBox(height: 1,),
-//                       Container(
-//                            height: 30,
-//                     width: 220,
-                     
-//                         child: 
-//                       )
-//              ], 
-//             ),
-//             Column(
-            
-//               children: [
-//                           Padding(
-//                             padding: const EdgeInsets.only(left: 10),
-//                             child: IconButton(onPressed: (){
-    
-    
-//                               showDialog<String>(
-//                       context: context,
-//                       builder: (BuildContext context) => AlertDialog(
-//                         title: const Text(
-//                           'Edit Playlist',
-//                           textAlign: TextAlign.center,
-//                         ),
-//                         content: Container(
-//                           width: 100,
-//                           height: 100,
-//                           color: Colors.white,
-//                           child: Form(
-//                             key: _formKey,
-//                             child: Column(
-//                               children: <Widget>[
-//                                 TextFormField(
-//                                   decoration: InputDecoration(
-//                                      fillColor: Colors.white,
-//                       focusedBorder: OutlineInputBorder(
-//                         borderRadius: BorderRadius.circular(10.0),
-//                         borderSide: BorderSide(
-//                           color: Colors.blue,
-//                         ),
-//                       ),
-//                       enabledBorder: OutlineInputBorder(
-//                         borderRadius: BorderRadius.circular(10.0),
-//                         borderSide: BorderSide(
-//                           color: Color.fromARGB(255, 54, 101, 244),
-                    
-//                         ),
-//                       ),
-                                
-//                                     hintText: "Edit Playlist Name"
-//                                   ),
-    
-                                  
-//                                   validator: (value) {
-//                                     // validation logic
-//                                   },
-//                                 ),
-//                               ],
-//                             ),
-//                           ),
-//                         ),
-//                         actions: <Widget>[
-//                           TextButton(
-//                             onPressed: () => Navigator.pop(context, 'Cancel'),
-//                             child: const Text('Cancel'),
-//                           ),
-//                           TextButton(
-//                             onPressed: () {
-//                               if (_formKey.currentState!.validate()) {
-//                                 // text in form is valid
-//                               }
-//                             },
-//                             child: const Text('Done'),
-//                           ),
-//                         ],
-//                       ),
-//                     );
-    
-    
-    
-//                             }, icon: Icon(Icons.edit,color: Color.fromARGB(255, 128, 81, 81),size: 20,)),
-//                           ),
-//                           Padding(
-//                     padding: const EdgeInsets.only(left: 10),
-//                     child: IconButton(
-//                         onPressed: () {
-    
-                                
-//                               showDialog<String>(
-//                       context: context,
-//                       builder: (BuildContext context) => AlertDialog(
-//                         title: const Text(
-//                           'Delete Playlist',
-//                           textAlign: TextAlign.center,
-//                         ),
-//                         content:Text(" Do you want to Delete this playlist"),
-//                         actions: [
-//                           TextButton(
-//                             onPressed: () => Navigator.pop(context, 'Cancel'),
-//                             child: const Text('Cancel'),
-//                           ),
-//                           TextButton(
-//                             onPressed: () {
-//                               if (_formKey.currentState!.validate()) {
-//                                 // text in form is valid
-//                               }
-//                             },
-//                             child: const Text('Done'),
-//                           ),
-//                         ],
-//                       ),
-//                     );
-    
-    
-    
-    
-//                         }, icon: Icon(Icons.delete),color: Color.fromARGB(255, 128, 81, 81),),
-//                   )
-//               ],
-//             ),
-//           ],
-//         ),
-          
-          
-//         ),
-//       ),
-//     );
-//   }
-// }
-

@@ -6,7 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:marquee/marquee.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:raaga/Widgets/PlayLists/bottomsheet_plalist.dart'; 
-import 'package:raaga/Widgets/musicPlayPage/openPlayer.dart';
+import 'package:raaga/common%20module/openPlayer.dart';
 import 'package:raaga/dataBase/songModel.dart';
 
 class Playlist_SongView_page extends StatefulWidget {

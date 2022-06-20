@@ -1,18 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:raaga/Pages/pageView_playlist.dart';
 import 'package:raaga/dataBase/songModel.dart';
 
-TextEditingController _controller = TextEditingController();
- var playlistNameKey =_controller.text; 
-class createNewPlaylistButton extends StatefulWidget {
-  const createNewPlaylistButton({Key? key}) : super(key: key);
-
-  @override
-  State<createNewPlaylistButton> createState() =>
-      _createNewPlaylistButtonState();
-}
-
-class _createNewPlaylistButtonState extends State<createNewPlaylistButton> {
+class createNewPlaylistButton extends StatelessWidget {
+  createNewPlaylistButton({Key? key}) : super(key: key);
 
   List<songDataBaseModel> playlists = [];
   final box = Raaga_SongData.getInstance();
@@ -21,16 +11,17 @@ class _createNewPlaylistButtonState extends State<createNewPlaylistButton> {
 
   @override
   Widget build(BuildContext context) {
-  
-    return 
-     
-   AlertDialog(
+    return AlertDialog(
       shape: const RoundedRectangleBorder(
-         borderRadius: BorderRadius.all(Radius.circular(20.0))),
-         backgroundColor: Color.fromARGB(255, 205, 206, 234),
-      title: const Center(child: Text('Playlist Name',style: TextStyle(color: Color.fromARGB(255, 89, 96, 110)),)),
+          borderRadius: BorderRadius.all(Radius.circular(20.0))),
+      backgroundColor: Color.fromARGB(255, 205, 206, 234),
+      title: const Center(
+          child: Text(
+        'Playlist Name',
+        style: TextStyle(color: Color.fromARGB(255, 89, 96, 110)),
+      )),
       content: Form(
-          key: formkey,                           
+          key: formkey,
           child: TextFormField(
             onChanged: (value) {
               title = value.trim();
@@ -63,7 +54,6 @@ class _createNewPlaylistButtonState extends State<createNewPlaylistButton> {
                   if (formkey.currentState!.validate()) {
                     box.put(title, playlists);
                     Navigator.pop(context);
-                    setState(() {});
                   }
                 },
                 child: const Text(
@@ -73,7 +63,6 @@ class _createNewPlaylistButtonState extends State<createNewPlaylistButton> {
           ],
         ),
       ],
-    
     );
   }
 }

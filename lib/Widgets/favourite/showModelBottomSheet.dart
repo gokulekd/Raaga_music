@@ -1,33 +1,29 @@
-import 'package:assets_audio_player/assets_audio_player.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marquee/marquee.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:raaga/Pages/Screen_Splash.dart';
+import 'package:raaga/splash%20module/view/Screen_Splash.dart';
 import 'package:raaga/dataBase/songModel.dart';
- List? mainFavouriteList = box.get("favourites");
+
 
  var dbSongs_dataBaseId ;
-class showModelBottomSheet_favourite_Screen extends StatefulWidget {
+class showModelBottomSheet_favourite_Screen extends StatelessWidget {
+  
   showModelBottomSheet_favourite_Screen({Key? key}) : super(key: key);
-
-  @override
-  State<showModelBottomSheet_favourite_Screen> createState() =>
-      _showModelBottomSheet_favourite_ScreenState();
-}
-
 final box = Raaga_SongData.getInstance();
 
-class _showModelBottomSheet_favourite_ScreenState
-    extends State<showModelBottomSheet_favourite_Screen> {
 
-      
-  List? mainFavouriteList = box.get("favourites");
+
+
+
 
   bool istapped = false;
 
   @override
   Widget build(BuildContext context) {
+          
+  List? mainFavouriteList = box.get("favourites");
     double _w = MediaQuery.of(context).size.width;
     return ListView.builder(
       itemCount: fullSongs.length,
@@ -142,9 +138,9 @@ class _showModelBottomSheet_favourite_ScreenState
                         ? IconButton(
                             onPressed: () async {
                               istapped = !istapped;
-                              mainFavouriteList!.add(dbSongs_dataBase[index]);
-                              await box.put("favourites", mainFavouriteList!);
-                              setState(() {});
+                              mainFavouriteList.add(dbSongs_dataBase[index]);
+                              await box.put("favourites", mainFavouriteList);
+                    
                             },
                             icon: const Icon(
                               Icons.favorite,
@@ -154,11 +150,11 @@ class _showModelBottomSheet_favourite_ScreenState
                         : IconButton(
                             onPressed: ()
                              async {
-                              mainFavouriteList!.removeWhere((element) =>
+                              mainFavouriteList.removeWhere((element) =>
                                   element.id.toString() ==
                                   dbSongs_dataBase[index].id.toString());
-                              await box.put("favourites", mainFavouriteList!);
-                              setState(() {});
+                              await box.put("favourites", mainFavouriteList);
+               
                             },
                             icon: const Icon(Icons.favorite,
                                 size: 20,
